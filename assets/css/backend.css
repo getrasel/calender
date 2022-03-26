@@ -9,6 +9,7 @@
  * @since       v1.0.0
  * ---------------------------------------------------------------------------- */
 
+
 /**
  * BACKEND CSS FILE FOR EASY!APPOINTMENTS
  */
@@ -16,6 +17,7 @@
 root {
     display: block;
 }
+
 
 /* BACKEND GENERAL ELEMENTS
    -------------------------------------------------------------------- */
@@ -38,7 +40,6 @@ root {
 
 #header #header-logo img {
     float: left;
-    width: 45px;
     height: 45px;
     margin-right: 10px;
 }
@@ -165,7 +166,9 @@ body .modal-content {
     border: none;
 }
 
+
 /* Full screen modal */
+
 body .modal.full-screen .modal-dialog {
     width: 100%;
     height: 100%;
@@ -182,7 +185,8 @@ body .modal.full-screen .modal-content {
 
 body .modal.full-screen .wrapper {
     min-height: 100%;
-    margin-bottom: -67px; /* modal-footer height */
+    margin-bottom: -67px;
+    /* modal-footer height */
 }
 
 body .modal.full-screen .modal-footer {
@@ -213,6 +217,7 @@ body legend {
         text-align: right;
     }
 }
+
 
 /* BACKEND COMPONENTS
    -------------------------------------------------------------------- */
@@ -323,19 +328,19 @@ body legend {
     margin-bottom: 10px;
 }
 
-#calendar-page #calendar-actions > .btn-group {
+#calendar-page #calendar-actions>.btn-group {
     width: 100%;
 }
 
-#calendar-page #calendar-actions > .btn-group .btn {
+#calendar-page #calendar-actions>.btn-group .btn {
     width: auto;
 }
 
-#calendar-page #calendar-actions > .btn-group .btn:not(.dropdown-toggle) {
+#calendar-page #calendar-actions>.btn-group .btn:not(.dropdown-toggle) {
     text-align: right;
 }
 
-#calendar-page #calendar-actions > .btn-group .btn.dropdown-toggle {
+#calendar-page #calendar-actions>.btn-group .btn.dropdown-toggle {
     text-align: left;
 }
 
@@ -427,7 +432,7 @@ body legend {
 #calendar .fc-event {
     border: 1px solid #4790CA;
     background-color: #4790CA;
-    min-height: 12px; 
+    min-height: 12px;
 }
 
 #existing-customers-list {
@@ -462,7 +467,8 @@ body legend {
 
 #appointment-notes,
 #customer-notes {
-    height: 37px; /* Align with location field */
+    height: 37px;
+    /* Align with location field */
 }
 
 body .form-horizontal .control-label {
@@ -511,7 +517,7 @@ body .form-horizontal .controls {
     overflow-x: auto;
 }
 
-#calendar .calendar-view > div {
+#calendar .calendar-view>div {
     width: 100%;
     min-width: 1000%;
     overflow: auto;
@@ -554,55 +560,44 @@ body .form-horizontal .controls {
 #calendar .calendar-view .date-column .provider-column .event.unavailability {
     background: #409482;
     color: #fff;
-
 }
 
 @media (min-width: 768px) {
     #calendar-page #calendar-actions {
         text-align: right;
     }
-
     #calendar-page #calendar-filter .form-group .form-control {
         max-width: 300px;
         margin-bottom: 0;
     }
-
     #calendar-page #calendar-actions .btn {
         width: auto;
         margin-bottom: 0;
     }
-
-    #calendar-page #calendar-actions > .btn-group {
+    #calendar-page #calendar-actions>.btn-group {
         width: auto;
     }
-
-    #calendar-page #calendar-actions > .btn-group .btn {
+    #calendar-page #calendar-actions>.btn-group .btn {
         width: auto;
     }
-
-    #calendar-page #calendar-actions > .btn-group .btn:not(.dropdown-toggle) {
+    #calendar-page #calendar-actions>.btn-group .btn:not(.dropdown-toggle) {
         text-align: center;
     }
-
-    #calendar-page #calendar-actions > .btn-group .btn.dropdown-toggle {
+    #calendar-page #calendar-actions>.btn-group .btn.dropdown-toggle {
         text-align: center;
     }
-
     #calendar-page #calendar .fc-toolbar .fc-left {
         float: left;
         margin-bottom: 0;
     }
-
     #calendar-page #calendar .fc-toolbar .fc-right {
         float: right;
         margin-bottom: 0;
     }
-
     #calendar-page #calendar .fc-toolbar.fc-header-toolbar h2 {
         font-size: 22px;
         display: inline-block;
     }
-
     #calendar .calendar-header label {
         display: inline-block;
         margin: 0 10px;
@@ -663,6 +658,7 @@ body .form-horizontal .controls {
     font-size: 24px;
     margin-left: 10px;
 }
+
 
 /* BACKEND USERS PAGE
    -------------------------------------------------------------------- */
@@ -740,7 +736,6 @@ body .form-horizontal .controls {
     .breaks .break-day select {
         height: 36px;
     }
-
     .working-plan-exceptions .working-plan-exception select {
         height: 36px;
     }
@@ -770,6 +765,7 @@ body .form-horizontal .controls {
 #users-page #providers .record-details #provider-services .checkbox a {
     margin-left: 5px;
 }
+
 
 /* BACKEND SETTINGS PAGE
    -------------------------------------------------------------------- */

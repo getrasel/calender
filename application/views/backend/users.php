@@ -263,7 +263,10 @@
                                             <?= lang('timezone') ?>
                                             <span class="text-danger">*</span>
                                         </label>
-                                        <?= render_timezone_dropdown('id="provider-timezone" class="form-control required"') ?>
+                                        <select id="provider-timezone" class="form-control required">
+                                            <option value="America/Los_Angeles">Los_Angeles (-8:00)</option>
+                                        </select>
+                                        <!-- <?= render_timezone_dropdown('id="provider-timezone" class="form-control required"') ?> -->
                                     </div>
 
                                     <br>
