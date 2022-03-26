@@ -213,10 +213,11 @@
 
                         <div class="col-12 col-md-6">
                             <div id="select-time">
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="select-timezone"><?= lang('timezone') ?></label>
                                     <?= render_timezone_dropdown('id="select-timezone" class="form-control" value="UTC"'); ?>
-                                </div>
+                                </div> -->
+                                <input type="hidden" id="select-timezone-input" value="America/Los_Angeles">
 
                                 <div id="available-hours"></div>
                             </div>

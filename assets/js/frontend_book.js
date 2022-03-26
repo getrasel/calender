@@ -20,7 +20,7 @@ window.FrontendBook = window.FrontendBook || {};
  *
  * @module FrontendBook
  */
-(function (exports) {
+(function(exports) {
 
     'use strict';
 
@@ -53,7 +53,7 @@ window.FrontendBook = window.FrontendBook || {};
      * @param {Boolean} manageMode (OPTIONAL) Determines whether the customer is going
      * to make  changes to an existing appointment rather than booking a new one.
      */
-    exports.initialize = function (defaultEventHandlers, manageMode) {
+    exports.initialize = function(defaultEventHandlers, manageMode) {
         defaultEventHandlers = defaultEventHandlers || true;
         manageMode = manageMode || false;
 
@@ -101,29 +101,33 @@ window.FrontendBook = window.FrontendBook || {};
 
             dayNames: [
                 EALang.sunday, EALang.monday, EALang.tuesday, EALang.wednesday,
-                EALang.thursday, EALang.friday, EALang.saturday],
+                EALang.thursday, EALang.friday, EALang.saturday
+            ],
             dayNamesShort: [EALang.sunday.substr(0, 3), EALang.monday.substr(0, 3),
                 EALang.tuesday.substr(0, 3), EALang.wednesday.substr(0, 3),
                 EALang.thursday.substr(0, 3), EALang.friday.substr(0, 3),
-                EALang.saturday.substr(0, 3)],
+                EALang.saturday.substr(0, 3)
+            ],
             dayNamesMin: [EALang.sunday.substr(0, 2), EALang.monday.substr(0, 2),
                 EALang.tuesday.substr(0, 2), EALang.wednesday.substr(0, 2),
                 EALang.thursday.substr(0, 2), EALang.friday.substr(0, 2),
-                EALang.saturday.substr(0, 2)],
+                EALang.saturday.substr(0, 2)
+            ],
             monthNames: [EALang.january, EALang.february, EALang.march, EALang.april,
                 EALang.may, EALang.june, EALang.july, EALang.august, EALang.september,
-                EALang.october, EALang.november, EALang.december],
+                EALang.october, EALang.november, EALang.december
+            ],
             prevText: EALang.previous,
             nextText: EALang.next,
             currentText: EALang.now,
             closeText: EALang.close,
 
-            onSelect: function (dateText, instance) {
+            onSelect: function(dateText, instance) {
                 FrontendBookApi.getAvailableHours($(this).datepicker('getDate').toString('yyyy-MM-dd'));
                 FrontendBook.updateConfirmFrame();
             },
 
-            onChangeMonthYear: function (year, month, instance) {
+            onChangeMonthYear: function(year, month, instance) {
                 var currentDate = new Date(year, month - 1, 1);
                 FrontendBookApi.getUnavailableDates($('#select-provider').val(), $('#select-service').val(),
                     currentDate.toString('yyyy-MM-dd'));
@@ -186,7 +190,7 @@ window.FrontendBook = window.FrontendBook || {};
         /**
          * Event: Timezone "Changed"
          */
-        $('#select-timezone').on('change', function () {
+        $('#select-timezone').on('change', function() {
             var date = $('#select-date').datepicker('getDate');
 
             if (!date) {
@@ -203,7 +207,7 @@ window.FrontendBook = window.FrontendBook || {};
          *
          * Whenever the provider changes the available appointment date - time periods must be updated.
          */
-        $('#select-provider').on('change', function () {
+        $('#select-provider').on('change', function() {
             FrontendBookApi.getUnavailableDates($(this).val(), $('#select-service').val(),
                 $('#select-date').datepicker('getDate').toString('yyyy-MM-dd'));
             FrontendBook.updateConfirmFrame();
@@ -215,14 +219,14 @@ window.FrontendBook = window.FrontendBook || {};
          * When the user clicks on a service, its available providers should
          * become visible.
          */
-        $('#select-service').on('change', function () {
+        $('#select-service').on('change', function() {
             var serviceId = $('#select-service').val();
 
             $('#select-provider').empty();
 
-            GlobalVariables.availableProviders.forEach(function (provider) {
+            GlobalVariables.availableProviders.forEach(function(provider) {
                 // If the current provider is able to provide the selected service, add him to the list box.
-                var canServeService = provider.services.filter(function (providerServiceId) {
+                var canServeService = provider.services.filter(function(providerServiceId) {
                     return Number(providerServiceId) === Number(serviceId);
                 }).length > 0;
 
@@ -248,7 +252,7 @@ window.FrontendBook = window.FrontendBook || {};
          * This handler is triggered every time the user pressed the "next" button on the book wizard.
          * Some special tasks might be performed, depending the current wizard step.
          */
-        $('.button-next').on('click', function () {
+        $('.button-next').on('click', function() {
             // If we are on the first step and there is not provider selected do not continue with the next step.
             if ($(this).attr('data-step_index') === '1' && !$('#select-provider').val()) {
                 return;
@@ -259,10 +263,10 @@ window.FrontendBook = window.FrontendBook || {};
                 if (!$('.selected-hour').length) {
                     if (!$('#select-hour-prompt').length) {
                         $('<div/>', {
-                            'id': 'select-hour-prompt',
-                            'class': 'text-danger mb-4',
-                            'text': EALang.appointment_hour_missing,
-                        })
+                                'id': 'select-hour-prompt',
+                                'class': 'text-danger mb-4',
+                                'text': EALang.appointment_hour_missing,
+                            })
                             .prependTo('#available-hours');
                     }
                     return;
@@ -312,7 +316,7 @@ window.FrontendBook = window.FrontendBook || {};
             // Display the next step tab (uses jquery animation effect).
             var nextTabIndex = parseInt($(this).attr('data-step_index')) + 1;
 
-            $(this).parents().eq(1).hide('fade', function () {
+            $(this).parents().eq(1).hide('fade', function() {
                 $('.active-step').removeClass('active-step');
                 $('#step-' + nextTabIndex).addClass('active-step');
                 $('#wizard-frame-' + nextTabIndex).show('fade');
@@ -325,10 +329,10 @@ window.FrontendBook = window.FrontendBook || {};
          * This handler is triggered every time the user pressed the "back" button on the
          * book wizard.
          */
-        $('.button-back').on('click', function () {
+        $('.button-back').on('click', function() {
             var prevTabIndex = parseInt($(this).attr('data-step_index')) - 1;
 
-            $(this).parents().eq(1).hide('fade', function () {
+            $(this).parents().eq(1).hide('fade', function() {
                 $('.active-step').removeClass('active-step');
                 $('#step-' + prevTabIndex).addClass('active-step');
                 $('#wizard-frame-' + prevTabIndex).show('fade');
@@ -341,7 +345,7 @@ window.FrontendBook = window.FrontendBook || {};
          * Triggered whenever the user clicks on an available hour
          * for his appointment.
          */
-        $('#available-hours').on('click', '.available-hour', function () {
+        $('#available-hours').on('click', '.available-hour', function() {
             $('.selected-hour').removeClass('selected-hour');
             $(this).addClass('selected-hour');
             FrontendBook.updateConfirmFrame();
@@ -357,17 +361,16 @@ window.FrontendBook = window.FrontendBook || {};
              *
              * @param {jQuery.Event} event
              */
-            $('#cancel-appointment').on('click', function (event) {
-                var buttons = [
-                    {
+            $('#cancel-appointment').on('click', function(event) {
+                var buttons = [{
                         text: EALang.cancel,
-                        click: function () {
+                        click: function() {
                             $('#message-box').dialog('close');
                         }
                     },
                     {
                         text: 'OK',
-                        click: function () {
+                        click: function() {
                             if ($('#cancel-reason').val() === '') {
                                 $('#cancel-reason').css('border', '2px solid #DC3545');
                                 return;
@@ -382,29 +385,28 @@ window.FrontendBook = window.FrontendBook || {};
                     EALang.write_appointment_removal_reason, buttons);
 
                 $('<textarea/>', {
-                    'class': 'form-control',
-                    'id': 'cancel-reason',
-                    'rows': '3',
-                    'css': {
-                        'width': '100%'
-                    }
-                })
+                        'class': 'form-control',
+                        'id': 'cancel-reason',
+                        'rows': '3',
+                        'css': {
+                            'width': '100%'
+                        }
+                    })
                     .appendTo('#message-box');
 
                 return false;
             });
 
-            $('#delete-personal-information').on('click', function () {
-                var buttons = [
-                    {
+            $('#delete-personal-information').on('click', function() {
+                var buttons = [{
                         text: EALang.cancel,
-                        click: function () {
+                        click: function() {
                             $('#message-box').dialog('close');
                         }
                     },
                     {
                         text: EALang.delete,
-                        click: function () {
+                        click: function() {
                             FrontendBookApi.deletePersonalInformation(GlobalVariables.customerToken);
                         }
                     }
@@ -424,7 +426,7 @@ window.FrontendBook = window.FrontendBook || {};
          *
          * @param {jQuery.Event} event
          */
-        $('#book-appointment-submit').on('click', function () {
+        $('#book-appointment-submit').on('click', function() {
             FrontendBookApi.registerAppointment();
         });
 
@@ -433,13 +435,13 @@ window.FrontendBook = window.FrontendBook || {};
          *
          * @param {jQuery.Event} event
          */
-        $('.captcha-title button').on('click', function (event) {
+        $('.captcha-title button').on('click', function(event) {
             $('.captcha-image').attr('src', GlobalVariables.baseUrl + '/index.php/captcha?' + Date.now());
         });
 
 
-        $('#select-date').on('mousedown', '.ui-datepicker-calendar td', function (event) {
-            setTimeout(function () {
+        $('#select-date').on('mousedown', '.ui-datepicker-calendar td', function(event) {
+            setTimeout(function() {
                 FrontendBookApi.applyPreviousUnavailableDates(); // New jQuery UI version will replace the td elements.
             }, 300); // There is no draw event unfortunately.
         })
@@ -458,7 +460,7 @@ window.FrontendBook = window.FrontendBook || {};
         try {
             // Validate required fields.
             var missingRequiredField = false;
-            $('.required').each(function (index, requiredField) {
+            $('.required').each(function(index, requiredField) {
                 if (!$(requiredField).val()) {
                     $(requiredField).parents('.form-group').addClass('has-error');
                     missingRequiredField = true;
@@ -498,7 +500,7 @@ window.FrontendBook = window.FrontendBook || {};
      * Every time this function is executed, it updates the confirmation page with the latest
      * customer settings and input for the appointment booking.
      */
-    exports.updateConfirmFrame = function () {
+    exports.updateConfirmFrame = function() {
         if ($('.selected-hour').text() === '') {
             return;
         }
@@ -514,7 +516,7 @@ window.FrontendBook = window.FrontendBook || {};
         var servicePrice = '';
         var serviceCurrency = '';
 
-        GlobalVariables.availableServices.forEach(function (service, index) {
+        GlobalVariables.availableServices.forEach(function(service, index) {
             if (Number(service.id) === Number(serviceId) && Number(service.price) > 0) {
                 servicePrice = service.price;
                 serviceCurrency = service.currency;
@@ -525,38 +527,38 @@ window.FrontendBook = window.FrontendBook || {};
         $('#appointment-details').empty();
 
         $('<div/>', {
-            'html': [
-                $('<h4/>', {
-                    'text': EALang.appointment
-                }),
-                $('<p/>', {
-                    'html': [
-                        $('<span/>', {
-                            'text': EALang.service + ': ' + $('#select-service option:selected').text()
-                        }),
-                        $('<br/>'),
-                        $('<span/>', {
-                            'text': EALang.provider + ': ' + $('#select-provider option:selected').text()
-                        }),
-                        $('<br/>'),
-                        $('<span/>', {
-                            'text': EALang.start + ': ' + selectedDate + ' ' + $('.selected-hour').text()
-                        }),
-                        $('<br/>'),
-                        $('<span/>', {
-                            'text': EALang.timezone + ': ' + $('#select-timezone option:selected').text()
-                        }),
-                        $('<br/>'),
-                        $('<span/>', {
-                            'text': EALang.price + ': ' + servicePrice + ' ' + serviceCurrency,
-                            'prop': {
-                                'hidden': !servicePrice
-                            }
-                        }),
-                    ]
-                })
-            ]
-        })
+                'html': [
+                    $('<h4/>', {
+                        'text': EALang.appointment
+                    }),
+                    $('<p/>', {
+                        'html': [
+                            $('<span/>', {
+                                'text': EALang.service + ': ' + $('#select-service option:selected').text()
+                            }),
+                            $('<br/>'),
+                            $('<span/>', {
+                                'text': EALang.provider + ': ' + $('#select-provider option:selected').text()
+                            }),
+                            $('<br/>'),
+                            $('<span/>', {
+                                'text': EALang.start + ': ' + selectedDate + ' ' + $('.selected-hour').text()
+                            }),
+                            $('<br/>'),
+                            $('<span/>', {
+                                'text': EALang.timezone + ': ' + $('#select-timezone option:selected').text()
+                            }),
+                            $('<br/>'),
+                            $('<span/>', {
+                                'text': EALang.price + ': ' + servicePrice + ' ' + serviceCurrency,
+                                'prop': {
+                                    'hidden': !servicePrice
+                                }
+                            }),
+                        ]
+                    })
+                ]
+            })
             .appendTo('#appointment-details');
 
         // Customer Details
@@ -571,40 +573,40 @@ window.FrontendBook = window.FrontendBook || {};
         $('#customer-details').empty();
 
         $('<div/>', {
-            'html': [
-                $('<h4/>)', {
-                    'text': EALang.customer
-                }),
-                $('<p/>', {
-                    'html': [
-                        $('<span/>', {
-                            'text': EALang.customer + ': ' + firstName + ' ' + lastName
-                        }),
-                        $('<br/>'),
-                        $('<span/>', {
-                            'text': EALang.phone_number + ': ' + phoneNumber
-                        }),
-                        $('<br/>'),
-                        $('<span/>', {
-                            'text': EALang.email + ': ' + email
-                        }),
-                        $('<br/>'),
-                        $('<span/>', {
-                            'text': address ? EALang.address + ': ' + address : ''
-                        }),
-                        $('<br/>'),
-                        $('<span/>', {
-                            'text': city ? EALang.city + ': ' + city : ''
-                        }),
-                        $('<br/>'),
-                        $('<span/>', {
-                            'text': zipCode ? EALang.zip_code + ': ' + zipCode : ''
-                        }),
-                        $('<br/>'),
-                    ]
-                })
-            ]
-        })
+                'html': [
+                    $('<h4/>)', {
+                        'text': EALang.customer
+                    }),
+                    $('<p/>', {
+                        'html': [
+                            $('<span/>', {
+                                'text': EALang.customer + ': ' + firstName + ' ' + lastName
+                            }),
+                            $('<br/>'),
+                            $('<span/>', {
+                                'text': EALang.phone_number + ': ' + phoneNumber
+                            }),
+                            $('<br/>'),
+                            $('<span/>', {
+                                'text': EALang.email + ': ' + email
+                            }),
+                            $('<br/>'),
+                            $('<span/>', {
+                                'text': address ? EALang.address + ': ' + address : ''
+                            }),
+                            $('<br/>'),
+                            $('<span/>', {
+                                'text': city ? EALang.city + ': ' + city : ''
+                            }),
+                            $('<br/>'),
+                            $('<span/>', {
+                                'text': zipCode ? EALang.zip_code + ': ' + zipCode : ''
+                            }),
+                            $('<br/>'),
+                        ]
+                    })
+                ]
+            })
             .appendTo('#customer-details');
 
 
@@ -619,12 +621,12 @@ window.FrontendBook = window.FrontendBook || {};
             address: $('#address').val(),
             city: $('#city').val(),
             zip_code: $('#zip-code').val(),
-            timezone: $('#select-timezone').val()
+            timezone: $('#select-timezone-input').val()
         };
 
         data.appointment = {
-            start_datetime: $('#select-date').datepicker('getDate').toString('yyyy-MM-dd')
-                + ' ' + Date.parse($('.selected-hour').data('value') || '').toString('HH:mm') + ':00',
+            start_datetime: $('#select-date').datepicker('getDate').toString('yyyy-MM-dd') +
+                ' ' + Date.parse($('.selected-hour').data('value') || '').toString('HH:mm') + ':00',
             end_datetime: calculateEndDatetime(),
             notes: $('#notes').val(),
             is_unavailable: false,
@@ -652,18 +654,18 @@ window.FrontendBook = window.FrontendBook || {};
         // Find selected service duration.
         var serviceId = $('#select-service').val();
 
-        var service = GlobalVariables.availableServices.find(function (availableService) {
+        var service = GlobalVariables.availableServices.find(function(availableService) {
             return Number(availableService.id) === Number(serviceId);
         });
 
         // Add the duration to the start datetime.
-        var startDatetime = $('#select-date').datepicker('getDate').toString('dd-MM-yyyy')
-            + ' ' + Date.parse($('.selected-hour').data('value') || '').toString('HH:mm');
+        var startDatetime = $('#select-date').datepicker('getDate').toString('dd-MM-yyyy') +
+            ' ' + Date.parse($('.selected-hour').data('value') || '').toString('HH:mm');
         startDatetime = Date.parseExact(startDatetime, 'dd-MM-yyyy HH:mm');
         var endDatetime;
 
         if (service.duration && startDatetime) {
-            endDatetime = startDatetime.add({'minutes': parseInt(service.duration)});
+            endDatetime = startDatetime.add({ 'minutes': parseInt(service.duration) });
         } else {
             endDatetime = new Date();
         }
@@ -701,10 +703,10 @@ window.FrontendBook = window.FrontendBook || {};
             $('#city').val(customer.city);
             $('#zip-code').val(customer.zip_code);
             if (customer.timezone) {
-                $('#select-timezone').val(customer.timezone)
+                $('#select-timezone-input').val(customer.timezone)
             }
-            var appointmentNotes = (appointment.notes !== null)
-                ? appointment.notes : '';
+            var appointmentNotes = (appointment.notes !== null) ?
+                appointment.notes : '';
             $('#notes').val(appointmentNotes);
 
             FrontendBook.updateConfirmFrame();
@@ -727,7 +729,7 @@ window.FrontendBook = window.FrontendBook || {};
 
         $serviceDescription.empty();
 
-        var service = GlobalVariables.availableServices.find(function (availableService) {
+        var service = GlobalVariables.availableServices.find(function(availableService) {
             return Number(availableService.id) === Number(serviceId);
         });
 
@@ -736,8 +738,8 @@ window.FrontendBook = window.FrontendBook || {};
         }
 
         $('<strong/>', {
-            'text': service.name
-        })
+                'text': service.name
+            })
             .appendTo($serviceDescription);
 
         if (service.description) {
@@ -745,8 +747,8 @@ window.FrontendBook = window.FrontendBook || {};
                 .appendTo($serviceDescription);
 
             $('<span/>', {
-                'html': GeneralFunctions.escapeHtml(service.description).replaceAll('\n', '<br/>')
-            })
+                    'html': GeneralFunctions.escapeHtml(service.description).replaceAll('\n', '<br/>')
+                })
                 .appendTo($serviceDescription);
         }
 
@@ -757,22 +759,22 @@ window.FrontendBook = window.FrontendBook || {};
 
         if (service.duration) {
             $('<span/>', {
-                'text': '[' + EALang.duration + ' ' + service.duration + ' ' + EALang.minutes + ']'
-            })
+                    'text': '[' + EALang.duration + ' ' + service.duration + ' ' + EALang.minutes + ']'
+                })
                 .appendTo($serviceDescription);
         }
 
         if (Number(service.price) > 0) {
             $('<span/>', {
-                'text': '[' + EALang.price + ' ' + service.price + ' ' + service.currency + ']'
-            })
+                    'text': '[' + EALang.price + ' ' + service.price + ' ' + service.currency + ']'
+                })
                 .appendTo($serviceDescription);
         }
 
         if (service.location) {
             $('<span/>', {
-                'text': '[' + EALang.location + ' ' + service.location + ']'
-            })
+                    'text': '[' + EALang.location + ' ' + service.location + ']'
+                })
                 .appendTo($serviceDescription);
         }
     }
