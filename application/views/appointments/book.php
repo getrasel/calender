@@ -188,19 +188,24 @@
                         <h2 class="frame-title"><?= lang('appointment_date_and_time') ?></h2>
 
                         <div class="row frame-content">
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-7">
                                 <div id="select-date"></div>
                             </div>
 
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-5">
                             <div id="select-time">
                                 <!-- <div class="form-group">
                                     <label for="select-timezone"><?= lang('timezone') ?></label>
                                     <?= render_timezone_dropdown('id="select-timezone" class="form-control" value="UTC"'); ?>
                                 </div> -->
                                 <input type="hidden" id="select-timezone-input" value="America/Los_Angeles">
-
-                                    <div id="available-hours"></div>
+                                    <div class="right_side_hours">
+                                        <div id="available-hours"></div>
+                                        <button type="button" id="button-next-1" class="btn button-next btn-dark" data-step_index="1">
+                                            <?= lang('next') ?>
+                                            <i class="fas fa-chevron-right ml-2"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -214,11 +219,11 @@
                     </button> -->
 
                         <span>&nbsp;</span>
-
                         <button type="button" id="button-next-2" class="btn button-next btn-dark" data-step_index="2">
                             <?= lang('next') ?>
                             <i class="fas fa-chevron-right ml-2"></i>
                         </button>
+                        
                     </div>
                 </div>
 

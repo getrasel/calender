@@ -111,6 +111,14 @@ window.FrontendBookApi = window.FrontendBookApi || {};
                                     'value': availableHour
                                 },
                                 'text': availableHourMoment.format(timeFormat)
+                            }),
+                            $('<button/>', {
+                                'class': 'btn button-next btn-primary',
+                                'id': 'button-next-2',
+                                'attr': {
+                                    'data-step_index': 2
+                                },
+                                'text': 'Confirm'
                             })
                         );
                     });

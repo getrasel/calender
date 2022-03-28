@@ -350,6 +350,7 @@ window.FrontendBook = window.FrontendBook || {};
             $(this).addClass('selected-hour');
             FrontendBook.updateConfirmFrame();
         });
+        
 
         if (FrontendBook.manageMode) {
             /**
