@@ -30,7 +30,7 @@
                 <!-- FRAME TOP BAR -->
 
                 <div id="header">
-                    <span id="company-name"><?= $company_name ?></span>
+                    <span id="company-name" style="Height: 25px;"><img src="/calendars/assets/img/logo-16x16.png" style="padding: 0,0,15,10;"><?= $company_name ?></span>
 
                     <div id="steps">
                         <!-- <div id="step-1" class="book-step active-step"
@@ -192,13 +192,13 @@
                                 <div id="select-date"></div>
                             </div>
 
-                        <div class="col-12 col-md-5">
-                            <div id="select-time">
-                                <!-- <div class="form-group">
+                            <div class="col-12 col-md-5">
+                                <div id="select-time">
+                                    <!-- <div class="form-group">
                                     <label for="select-timezone"><?= lang('timezone') ?></label>
                                     <?= render_timezone_dropdown('id="select-timezone" class="form-control" value="UTC"'); ?>
                                 </div> -->
-                                <input type="hidden" id="select-timezone-input" value="America/Los_Angeles">
+                                    <input type="hidden" id="select-timezone-input" value="America/Los_Angeles">
                                     <div class="right_side_hours">
                                         <div id="available-hours"></div>
                                         <button type="button" id="button-next-1" class="btn button-next btn-dark" data-step_index="1">
@@ -223,7 +223,7 @@
                             <?= lang('next') ?>
                             <i class="fas fa-chevron-right ml-2"></i>
                         </button>
-                        
+
                     </div>
                 </div>
 
