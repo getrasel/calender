@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.4.3
  * ---------------------------------------------------------------------------- */
 
@@ -19,7 +19,8 @@
  * Since the method signatures changed in PHP 8.1, the ReturnTypeWillChange attribute allows us to keep compatibility
  * between different PHP versions.
  */
-class Ics_provider implements \Iterator {
+class Ics_provider implements \Iterator
+{
     /**
      * @var \Closure
      */
@@ -120,18 +121,13 @@ class Ics_provider implements \Iterator {
     #[ReturnTypeWillChange]
     public function valid()
     {
-        if (count($this->data) < 1)
-        {
-            if ($this->provider instanceof \Closure)
-            {
+        if (count($this->data) < 1) {
+            if ($this->provider instanceof \Closure) {
                 $this->data = $this->provider->__invoke($this->key);
-                if (isset($this->data[0]))
-                {
+                if (isset($this->data[0])) {
                     $this->first = $this->data[0];
                 }
-            }
-            else
-            {
+            } else {
                 $this->data = $this->manuallyAddedData;
                 $this->manuallyAddedData = [];
             }
@@ -148,25 +144,19 @@ class Ics_provider implements \Iterator {
     #[ReturnTypeWillChange]
     public function first()
     {
-        if (isset($this->first))
-        {
+        if (isset($this->first)) {
             return $this->first;
         }
 
-        if ($this->provider instanceof \Closure)
-        {
-            if ($this->valid())
-            {
+        if ($this->provider instanceof \Closure) {
+            if ($this->valid()) {
                 return $this->first;
-            }
-            else
-            {
+            } else {
                 return FALSE;
             }
         }
 
-        if ( ! isset($this->manuallyAddedData[0]))
-        {
+        if (!isset($this->manuallyAddedData[0])) {
             return FALSE;
         }
 

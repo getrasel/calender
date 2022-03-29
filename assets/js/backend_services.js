@@ -5,7 +5,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.0.0
  * ---------------------------------------------------------------------------- */
 
@@ -19,8 +19,7 @@ window.BackendServices = window.BackendServices || {};
  * @module BackendServices
  */
 (function (exports) {
-
-    'use strict';
+    "use strict";
 
     /**
      * Contains the basic record methods for the page.
@@ -42,15 +41,19 @@ window.BackendServices = window.BackendServices || {};
 
         // Fill available service categories listbox.
         GlobalVariables.categories.forEach(function (category) {
-            $('#service-category').append(new Option(category.name, category.id));
+            $("#service-category").append(
+                new Option(category.name, category.id)
+            );
         });
 
-        $('#service-category').append(new Option('- ' + EALang.no_category + ' -', null)).val('null');
+        $("#service-category")
+            .append(new Option("- " + EALang.no_category + " -", null))
+            .val("null");
 
         // Instantiate helper object (service helper by default).
         helper = servicesHelper;
         helper.resetForm();
-        helper.filter('');
+        helper.filter("");
         helper.bindEventHandlers();
 
         if (defaultEventHandlers) {
@@ -69,21 +72,21 @@ window.BackendServices = window.BackendServices || {};
          *
          * Changes the displayed tab.
          */
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function () {
+        $('a[data-toggle="tab"]').on("shown.bs.tab", function () {
             if (helper) {
                 helper.unbindEventHandlers();
             }
 
-            if ($(this).attr('href') === '#services') {
+            if ($(this).attr("href") === "#services") {
                 helper = servicesHelper;
-            } else if ($(this).attr('href') === '#categories') {
+            } else if ($(this).attr("href") === "#categories") {
                 helper = categoriesHelper;
             }
 
             helper.resetForm();
-            helper.filter('');
+            helper.filter("");
             helper.bindEventHandlers();
-            $('.filter-key').val('');
+            $(".filter-key").val("");
             Backend.placeFooterToBottom();
         });
     }
@@ -94,25 +97,28 @@ window.BackendServices = window.BackendServices || {};
      * Use this method every time a change is made to the service categories db table.
      */
     exports.updateAvailableCategories = function () {
-        var url = GlobalVariables.baseUrl + '/index.php/backend_api/ajax_filter_service_categories';
+        var url =
+            GlobalVariables.baseUrl +
+            "/index.php/backend_api/ajax_filter_service_categories";
 
         var data = {
             csrfToken: GlobalVariables.csrfToken,
-            key: ''
+            key: "",
         };
 
-        $.post(url, data)
-            .done(function (response) {
-                GlobalVariables.categories = response;
-                var $select = $('#service-category');
+        $.post(url, data).done(function (response) {
+            GlobalVariables.categories = response;
+            var $select = $("#service-category");
 
-                $select.empty();
+            $select.empty();
 
-                response.forEach(function (category) {
-                    $select.append(new Option(category.name, category.id));
-                });
-
-                $select.append(new Option('- ' + EALang.no_category + ' -', null)).val('null');
+            response.forEach(function (category) {
+                $select.append(new Option(category.name, category.id));
             });
+
+            $select
+                .append(new Option("- " + EALang.no_category + " -", null))
+                .val("null");
+        });
     };
 })(window.BackendServices);

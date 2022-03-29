@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.2.0
  * ---------------------------------------------------------------------------- */
 
@@ -20,7 +20,8 @@ namespace EA\Engine\Types;
  *
  * This class needs to be extended by the type classes which must implement the validation logic.
  */
-abstract class Type {
+abstract class Type
+{
     /**
      * Class Constructor
      *
@@ -28,8 +29,7 @@ abstract class Type {
      */
     public function __construct($value)
     {
-        if ( ! $this->validate($value))
-        {
+        if (!$this->validate($value)) {
             throw new \InvalidArgumentException(__CLASS__ . ': Invalid argument value provided (' . $value . ')');
         }
 

@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.0.0
  * ---------------------------------------------------------------------------- */
 
@@ -16,7 +16,8 @@
  *
  * @package Models
  */
-class Settings_model extends EA_Model {
+class Settings_model extends EA_Model
+{
     /**
      * Get setting value from database.
      *
@@ -31,14 +32,12 @@ class Settings_model extends EA_Model {
      */
     public function get_setting($name)
     {
-        if ( ! is_string($name))
-        {
+        if (!is_string($name)) {
             // Check argument type.
             throw new Exception('$name argument is not a string: ' . $name);
         }
 
-        if ($this->db->get_where('settings', ['name' => $name])->num_rows() == 0)
-        {
+        if ($this->db->get_where('settings', ['name' => $name])->num_rows() == 0) {
             // Check if setting exists in db.
             throw new Exception('$name setting does not exist in database: ' . $name);
         }
@@ -63,32 +62,26 @@ class Settings_model extends EA_Model {
      */
     public function set_setting($name, $value)
     {
-        if ( ! is_string($name))
-        {
+        if (!is_string($name)) {
             throw new Exception('$name argument is not a string: ' . $name);
         }
 
         $query = $this->db->get_where('settings', ['name' => $name]);
 
-        if ($query->num_rows() > 0)
-        {
+        if ($query->num_rows() > 0) {
             // Update setting
-            if ( ! $this->db->update('settings', ['value' => xss_clean($value)], ['name' => $name]))
-            {
+            if (!$this->db->update('settings', ['value' => xss_clean($value)], ['name' => $name])) {
                 throw new Exception('Could not update database setting.');
             }
             $setting_id = (int)$this->db->get_where('settings', ['name' => $name])->row()->id;
-        }
-        else
-        {
+        } else {
             // Insert setting
             $insert_data = [
                 'name' => $name,
                 'value' => $value
             ];
 
-            if ( ! $this->db->insert('settings', $insert_data))
-            {
+            if (!$this->db->insert('settings', $insert_data)) {
                 throw new Exception('Could not insert database setting');
             }
 
@@ -109,13 +102,11 @@ class Settings_model extends EA_Model {
      */
     public function remove_setting($name)
     {
-        if ( ! is_string($name))
-        {
+        if (!is_string($name)) {
             throw new Exception('$name is not a string: ' . $name);
         }
 
-        if ($this->db->get_where('settings', ['name' => $name])->num_rows() == 0)
-        {
+        if ($this->db->get_where('settings', ['name' => $name])->num_rows() == 0) {
             return FALSE; // There is no such setting.
         }
 
@@ -136,16 +127,13 @@ class Settings_model extends EA_Model {
      */
     public function save_settings($settings)
     {
-        if ( ! is_array($settings))
-        {
+        if (!is_array($settings)) {
             throw new Exception('$settings argument is invalid: ' . print_r($settings, TRUE));
         }
 
-        foreach ($settings as $setting)
-        {
+        foreach ($settings as $setting) {
             $this->db->where('name', $setting['name']);
-            if ( ! $this->db->update('settings', ['value' => xss_clean($setting['value'])]))
-            {
+            if (!$this->db->update('settings', ['value' => xss_clean($setting['value'])])) {
                 throw new Exception('Could not save setting (' . $setting['name']
                     . ' - ' . $setting['value'] . ')');
             }

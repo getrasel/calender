@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,26 +19,28 @@
     <script src="<?= asset_url('assets/ext/jquery/jquery.min.js') ?>"></script>
     <script src="<?= asset_url('assets/ext/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
 </head>
+
 <body>
-<div id="no-priv-frame" class="frame-container">
-    <h3><?= lang('no_privileges') ?></h3>
-    <p>
-        <?= lang('no_privileges_message') ?>
-    </p>
+    <div id="no-priv-frame" class="frame-container">
+        <h3><?= lang('no_privileges') ?></h3>
+        <p>
+            <?= lang('no_privileges_message') ?>
+        </p>
 
-    <br>
+        <br>
 
-    <a href="<?= site_url('backend') ?>" class="btn btn-success btn-large">
-        <i class="icon-calendar icon-white mr-2"></i>
-        <?= lang('backend_calendar') ?>
-    </a>
+        <a href="<?= site_url('backend') ?>" class="btn btn-success btn-large">
+            <i class="icon-calendar icon-white mr-2"></i>
+            <?= lang('backend_calendar') ?>
+        </a>
 
-    <div class="mt-4">
-        <small>
-            Powered by
-            <a href="https://easyappointments.org">Easy!Appointments</a>
-        </small>
+        <div class="mt-4">
+            <small>
+                Powered by
+                <a href="https://calendars.davehansen.com">Easy!Appointments</a>
+            </small>
+        </div>
     </div>
-</div>
 </body>
+
 </html>

@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.2.0
  * ---------------------------------------------------------------------------- */
 
@@ -20,7 +20,8 @@ namespace EA\Engine\Api\V1\Parsers;
  *
  * @deprecated
  */
-class Unavailabilities implements ParsersInterface {
+class Unavailabilities implements ParsersInterface
+{
     /**
      * Encode Response Array
      *
@@ -55,38 +56,31 @@ class Unavailabilities implements ParsersInterface {
     {
         $decodedRequest = $base ?: [];
 
-        if (array_key_exists('id', $request))
-        {
+        if (array_key_exists('id', $request)) {
             $decodedRequest['id'] = $request['id'];
         }
 
-        if (array_key_exists('book', $request))
-        {
+        if (array_key_exists('book', $request)) {
             $decodedRequest['book_datetime'] = $request['book'];
         }
 
-        if (array_key_exists('start', $request))
-        {
+        if (array_key_exists('start', $request)) {
             $decodedRequest['start_datetime'] = $request['start'];
         }
 
-        if (array_key_exists('end', $request))
-        {
+        if (array_key_exists('end', $request)) {
             $decodedRequest['end_datetime'] = $request['end'];
         }
 
-        if (array_key_exists('notes', $request))
-        {
+        if (array_key_exists('notes', $request)) {
             $decodedRequest['notes'] = $request['notes'];
         }
 
-        if (array_key_exists('providerId', $request))
-        {
+        if (array_key_exists('providerId', $request)) {
             $decodedRequest['id_users_provider'] = $request['providerId'];
         }
 
-        if (array_key_exists('googleCalendarId', $request))
-        {
+        if (array_key_exists('googleCalendarId', $request)) {
             $decodedRequest['id_google_calendar'] = $request['googleCalendarId'];
         }
 

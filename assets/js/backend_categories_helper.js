@@ -5,13 +5,12 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.0.0
  * ---------------------------------------------------------------------------- */
 
 (function () {
-
-    'use strict';
+    "use strict";
 
     /**
      * CategoriesHelper Class
@@ -35,9 +34,9 @@
         /**
          * Event: Filter Categories Cancel Button "Click"
          */
-        $('#categories').on('click', '#filter-categories .clear', function () {
-            $('#filter-categories .key').val('');
-            instance.filter('');
+        $("#categories").on("click", "#filter-categories .clear", function () {
+            $("#filter-categories .key").val("");
+            instance.filter("");
             instance.resetForm();
         });
 
@@ -46,97 +45,108 @@
          *
          * @param {jQuery.Event} event
          */
-        $('#categories').on('submit', '#filter-categories form', function (event) {
-            event.preventDefault();
-            var key = $('#filter-categories .key').val();
-            $('.selected').removeClass('selected');
-            instance.resetForm();
-            instance.filter(key);
-        });
+        $("#categories").on(
+            "submit",
+            "#filter-categories form",
+            function (event) {
+                event.preventDefault();
+                var key = $("#filter-categories .key").val();
+                $(".selected").removeClass("selected");
+                instance.resetForm();
+                instance.filter(key);
+            }
+        );
 
         /**
          * Event: Filter Categories Row "Click"
          *
          * Displays the selected row data on the right side of the page.
          */
-        $('#categories').on('click', '.category-row', function () {
-            if ($('#filter-categories .filter').prop('disabled')) {
-                $('#filter-categories .results').css('color', '#AAA');
+        $("#categories").on("click", ".category-row", function () {
+            if ($("#filter-categories .filter").prop("disabled")) {
+                $("#filter-categories .results").css("color", "#AAA");
                 return; // exit because we are on edit mode
             }
 
-            var categoryId = $(this).attr('data-id');
+            var categoryId = $(this).attr("data-id");
 
             var category = instance.filterResults.find(function (filterResult) {
                 return Number(filterResult.id) === Number(categoryId);
             });
 
             instance.display(category);
-            $('#filter-categories .selected').removeClass('selected');
-            $(this).addClass('selected');
-            $('#edit-category, #delete-category').prop('disabled', false);
+            $("#filter-categories .selected").removeClass("selected");
+            $(this).addClass("selected");
+            $("#edit-category, #delete-category").prop("disabled", false);
         });
 
         /**
          * Event: Add Category Button "Click"
          */
-        $('#categories').on('click', '#add-category', function () {
+        $("#categories").on("click", "#add-category", function () {
             instance.resetForm();
-            $('#categories .add-edit-delete-group').hide();
-            $('#categories .save-cancel-group').show();
-            $('#categories .record-details').find('input, select, textarea').prop('disabled', false);
-            $('#filter-categories button').prop('disabled', true);
-            $('#filter-categories .results').css('color', '#AAA');
+            $("#categories .add-edit-delete-group").hide();
+            $("#categories .save-cancel-group").show();
+            $("#categories .record-details")
+                .find("input, select, textarea")
+                .prop("disabled", false);
+            $("#filter-categories button").prop("disabled", true);
+            $("#filter-categories .results").css("color", "#AAA");
         });
 
         /**
          * Event: Edit Category Button "Click"
          */
-        $('#categories').on('click', '#edit-category', function () {
-            $('#categories .add-edit-delete-group').hide();
-            $('#categories .save-cancel-group').show();
-            $('#categories .record-details').find('input, select, textarea').prop('disabled', false);
-            $('#filter-categories button').prop('disabled', true);
-            $('#filter-categories .results').css('color', '#AAA');
+        $("#categories").on("click", "#edit-category", function () {
+            $("#categories .add-edit-delete-group").hide();
+            $("#categories .save-cancel-group").show();
+            $("#categories .record-details")
+                .find("input, select, textarea")
+                .prop("disabled", false);
+            $("#filter-categories button").prop("disabled", true);
+            $("#filter-categories .results").css("color", "#AAA");
         });
 
         /**
          * Event: Delete Category Button "Click"
          */
-        $('#categories').on('click', '#delete-category', function () {
-            var categoryId = $('#category-id').val();
+        $("#categories").on("click", "#delete-category", function () {
+            var categoryId = $("#category-id").val();
 
             var buttons = [
                 {
                     text: EALang.cancel,
                     click: function () {
-                        $('#message-box').dialog('close');
-                    }
+                        $("#message-box").dialog("close");
+                    },
                 },
                 {
                     text: EALang.delete,
                     click: function () {
                         instance.delete(categoryId);
-                        $('#message-box').dialog('close');
-                    }
+                        $("#message-box").dialog("close");
+                    },
                 },
             ];
 
-            GeneralFunctions.displayMessageBox(EALang.delete_category,
-                EALang.delete_record_prompt, buttons);
+            GeneralFunctions.displayMessageBox(
+                EALang.delete_category,
+                EALang.delete_record_prompt,
+                buttons
+            );
         });
 
         /**
          * Event: Categories Save Button "Click"
          */
-        $('#categories').on('click', '#save-category', function () {
+        $("#categories").on("click", "#save-category", function () {
             var category = {
-                name: $('#category-name').val(),
-                description: $('#category-description').val()
+                name: $("#category-name").val(),
+                description: $("#category-description").val(),
             };
 
-            if ($('#category-id').val() !== '') {
-                category.id = $('#category-id').val();
+            if ($("#category-id").val() !== "") {
+                category.id = $("#category-id").val();
             }
 
             if (!instance.validate()) {
@@ -149,10 +159,10 @@
         /**
          * Event: Cancel Category Button "Click"
          */
-        $('#categories').on('click', '#cancel-category', function () {
-            var id = $('#category-id').val();
+        $("#categories").on("click", "#cancel-category", function () {
+            var id = $("#category-id").val();
             instance.resetForm();
-            if (id !== '') {
+            if (id !== "") {
                 instance.select(id, true);
             }
         });
@@ -162,15 +172,15 @@
      * Remove the previously registered event handlers.
      */
     CategoriesHelper.prototype.unbindEventHandlers = function () {
-        $('#categories')
-            .off('click', '#filter-categories .clear')
-            .off('submit', '#filter-categories form')
-            .off('click', '.category-row')
-            .off('click', '#add-category')
-            .off('click', '#edit-category')
-            .off('click', '#delete-category')
-            .off('click', '#save-category')
-            .off('click', '#cancel-category');
+        $("#categories")
+            .off("click", "#filter-categories .clear")
+            .off("submit", "#filter-categories form")
+            .off("click", ".category-row")
+            .off("click", "#add-category")
+            .off("click", "#edit-category")
+            .off("click", "#delete-category")
+            .off("click", "#save-category")
+            .off("click", "#cancel-category");
     };
 
     /**
@@ -182,49 +192,53 @@
      * @param {Boolean} display Optional (false), if true then the selected record will be displayed on the form.
      */
     CategoriesHelper.prototype.filter = function (key, selectId, display) {
-        var url = GlobalVariables.baseUrl + '/index.php/backend_api/ajax_filter_service_categories';
+        var url =
+            GlobalVariables.baseUrl +
+            "/index.php/backend_api/ajax_filter_service_categories";
 
         var data = {
             csrfToken: GlobalVariables.csrfToken,
             key: key,
-            limit: this.filterLimit
+            limit: this.filterLimit,
         };
 
-        $.post(url, data)
-            .done(function (response) {
+        $.post(url, data).done(
+            function (response) {
                 this.filterResults = response;
 
-                $('#filter-categories .results').empty();
+                $("#filter-categories .results").empty();
 
-                response.forEach(function (category) {
-                    $('#filter-categories .results')
-                        .append(this.getFilterHtml(category))
-                        .append($('<hr/>'));
-                }.bind(this));
+                response.forEach(
+                    function (category) {
+                        $("#filter-categories .results")
+                            .append(this.getFilterHtml(category))
+                            .append($("<hr/>"));
+                    }.bind(this)
+                );
 
                 if (response.length === 0) {
-                    $('#filter-categories .results').append(
-                        $('<em/>', {
-                            'text': EALang.no_records_found
+                    $("#filter-categories .results").append(
+                        $("<em/>", {
+                            text: EALang.no_records_found,
                         })
                     );
                 } else if (response.length === this.filterLimit) {
-                    $('<button/>', {
-                        'type': 'button',
-                        'class': 'btn btn-block btn-outline-secondary load-more text-center',
-                        'text': EALang.load_more,
-                        'click': function () {
+                    $("<button/>", {
+                        type: "button",
+                        class: "btn btn-block btn-outline-secondary load-more text-center",
+                        text: EALang.load_more,
+                        click: function () {
                             this.filterLimit += 20;
                             this.filter(key, selectId, display);
-                        }.bind(this)
-                    })
-                        .appendTo('#filter-categories .results');
+                        }.bind(this),
+                    }).appendTo("#filter-categories .results");
                 }
 
                 if (selectId) {
                     this.select(selectId, display);
                 }
-            }.bind(this));
+            }.bind(this)
+        );
     };
 
     /**
@@ -233,21 +247,24 @@
      * @param {Object} category Contains the category data.
      */
     CategoriesHelper.prototype.save = function (category) {
-        var url = GlobalVariables.baseUrl + '/index.php/backend_api/ajax_save_service_category';
+        var url =
+            GlobalVariables.baseUrl +
+            "/index.php/backend_api/ajax_save_service_category";
 
         var data = {
             csrfToken: GlobalVariables.csrfToken,
-            category: JSON.stringify(category)
+            category: JSON.stringify(category),
         };
 
-        $.post(url, data)
-            .done(function (response) {
+        $.post(url, data).done(
+            function (response) {
                 Backend.displayNotification(EALang.service_category_saved);
                 this.resetForm();
-                $('#filter-categories .key').val('');
-                this.filter('', response.id, true);
+                $("#filter-categories .key").val("");
+                this.filter("", response.id, true);
                 BackendServices.updateAvailableCategories();
-            }.bind(this));
+            }.bind(this)
+        );
     };
 
     /**
@@ -256,21 +273,24 @@
      * @param Number} id Record ID to be deleted.
      */
     CategoriesHelper.prototype.delete = function (id) {
-        var url = GlobalVariables.baseUrl + '/index.php/backend_api/ajax_delete_service_category';
+        var url =
+            GlobalVariables.baseUrl +
+            "/index.php/backend_api/ajax_delete_service_category";
 
         var data = {
             csrfToken: GlobalVariables.csrfToken,
-            category_id: id
+            category_id: id,
         };
 
-        $.post(url, data)
-            .done(function () {
+        $.post(url, data).done(
+            function () {
                 Backend.displayNotification(EALang.service_category_deleted);
 
                 this.resetForm();
-                this.filter($('#filter-categories .key').val());
+                this.filter($("#filter-categories .key").val());
                 BackendServices.updateAvailableCategories();
-            }.bind(this));
+            }.bind(this)
+        );
     };
 
     /**
@@ -279,9 +299,9 @@
      * @param {Object} category Contains the category data.
      */
     CategoriesHelper.prototype.display = function (category) {
-        $('#category-id').val(category.id);
-        $('#category-name').val(category.name);
-        $('#category-description').val(category.description);
+        $("#category-id").val(category.id);
+        $("#category-name").val(category.name);
+        $("#category-description").val(category.description);
     };
 
     /**
@@ -290,17 +310,17 @@
      * @return {Boolean} Returns the validation result.
      */
     CategoriesHelper.prototype.validate = function () {
-        $('#categories .has-error').removeClass('has-error');
-        $('#categories .form-message')
-            .removeClass('alert-danger')
-            .hide();
+        $("#categories .has-error").removeClass("has-error");
+        $("#categories .form-message").removeClass("alert-danger").hide();
 
         try {
             var missingRequired = false;
 
-            $('#categories .required').each(function (index, requiredField) {
+            $("#categories .required").each(function (index, requiredField) {
                 if (!$(requiredField).val()) {
-                    $(requiredField).closest('.form-group').addClass('has-error');
+                    $(requiredField)
+                        .closest(".form-group")
+                        .addClass("has-error");
                     missingRequired = true;
                 }
             });
@@ -311,8 +331,8 @@
 
             return true;
         } catch (error) {
-            $('#categories .form-message')
-                .addClass('alert-danger')
+            $("#categories .form-message")
+                .addClass("alert-danger")
                 .text(error.message)
                 .show();
             return false;
@@ -323,20 +343,20 @@
      * Bring the category form back to its initial state.
      */
     CategoriesHelper.prototype.resetForm = function () {
-        $('#filter-categories .selected').removeClass('selected');
-        $('#filter-categories button').prop('disabled', false);
-        $('#filter-categories .results').css('color', '');
+        $("#filter-categories .selected").removeClass("selected");
+        $("#filter-categories button").prop("disabled", false);
+        $("#filter-categories .results").css("color", "");
 
-        $('#categories .add-edit-delete-group').show();
-        $('#categories .save-cancel-group').hide();
-        $('#categories .record-details')
-            .find('input, select, textarea')
-            .val('')
-            .prop('disabled', true);
-        $('#edit-category, #delete-category').prop('disabled', true);
+        $("#categories .add-edit-delete-group").show();
+        $("#categories .save-cancel-group").hide();
+        $("#categories .record-details")
+            .find("input, select, textarea")
+            .val("")
+            .prop("disabled", true);
+        $("#edit-category, #delete-category").prop("disabled", true);
 
-        $('#categories .record-details .has-error').removeClass('has-error');
-        $('#categories .record-details .form-message').hide();
+        $("#categories .record-details .has-error").removeClass("has-error");
+        $("#categories .record-details .form-message").hide();
     };
 
     /**
@@ -347,15 +367,15 @@
      * @return {String} Returns the record HTML code.
      */
     CategoriesHelper.prototype.getFilterHtml = function (category) {
-        return $('<div/>', {
-            'class': 'category-row entry',
-            'data-id': category.id,
-            'html': [
-                $('<strong/>', {
-                    'text': category.name
+        return $("<div/>", {
+            class: "category-row entry",
+            "data-id": category.id,
+            html: [
+                $("<strong/>", {
+                    text: category.name,
                 }),
-                $('<br/>'),
-            ]
+                $("<br/>"),
+            ],
         });
     };
 
@@ -371,18 +391,22 @@
     CategoriesHelper.prototype.select = function (id, display) {
         display = display || false;
 
-        $('#filter-categories .selected').removeClass('selected');
+        $("#filter-categories .selected").removeClass("selected");
 
-        $('#filter-categories .category-row[data-id="' + id + '"]').addClass('selected');
+        $('#filter-categories .category-row[data-id="' + id + '"]').addClass(
+            "selected"
+        );
 
         if (display) {
-            var category = this.filterResults.find(function (category) {
-                return Number(category.id) === Number(id);
-            }.bind(this));
+            var category = this.filterResults.find(
+                function (category) {
+                    return Number(category.id) === Number(id);
+                }.bind(this)
+            );
 
             this.display(category);
 
-            $('#edit-category, #delete-category').prop('disabled', false);
+            $("#edit-category, #delete-category").prop("disabled", false);
         }
     };
 

@@ -5,7 +5,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.0.0
  * ---------------------------------------------------------------------------- */
 
@@ -19,13 +19,12 @@ window.GeneralFunctions = window.GeneralFunctions || {};
  * @module GeneralFunctions
  */
 (function (exports) {
-
-    'use strict';
+    "use strict";
 
     /**
      * Register global error handler.
      */
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener("DOMContentLoaded", function () {
         $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
             GeneralFunctions.ajaxFailureHandler(jqxhr, settings, thrownError);
         });
@@ -41,11 +40,11 @@ window.GeneralFunctions = window.GeneralFunctions || {};
      */
     exports.displayMessageBox = function (title, message, buttons) {
         if (!title) {
-            title = '- No Title Provided -';
+            title = "- No Title Provided -";
         }
 
         if (!message) {
-            message = '- No Message Provided -';
+            message = "- No Message Provided -";
         }
 
         if (!buttons) {
@@ -53,44 +52,42 @@ window.GeneralFunctions = window.GeneralFunctions || {};
                 {
                     text: EALang.close,
                     click: function () {
-                        $('#message-box').dialog('close');
-
-                    }
-                }
+                        $("#message-box").dialog("close");
+                    },
+                },
             ];
         }
 
         // Destroy previous dialog instances.
-        $('#message-box')
-            .dialog('destroy')
-            .remove();
+        $("#message-box").dialog("destroy").remove();
 
         // Create the html of the message box.
-        $('<div/>', {
-            'id': 'message-box',
-            'title': title,
-            'html': [
-                $('<p/>', {
-                    'html': message
-                })
-            ]
-        })
-            .appendTo('body');
+        $("<div/>", {
+            id: "message-box",
+            title: title,
+            html: [
+                $("<p/>", {
+                    html: message,
+                }),
+            ],
+        }).appendTo("body");
 
         $("#message-box").dialog({
             autoOpen: false,
             modal: true,
-            resize: 'auto',
-            width: 'auto',
-            height: 'auto',
+            resize: "auto",
+            width: "auto",
+            height: "auto",
             resizable: false,
             buttons: buttons,
-            closeOnEscape: true
+            closeOnEscape: true,
         });
 
-        $('#message-box').dialog('open');
-        $('.ui-dialog .ui-dialog-buttonset button').addClass('btn btn-outline-secondary');
-        $('#message-box .ui-dialog-titlebar-close').hide();
+        $("#message-box").dialog("open");
+        $(".ui-dialog .ui-dialog-buttonset button").addClass(
+            "btn btn-outline-secondary"
+        );
+        $("#message-box .ui-dialog-titlebar-close").hide();
     };
 
     /**
@@ -101,14 +98,16 @@ window.GeneralFunctions = window.GeneralFunctions || {};
     exports.centerElementOnPage = function (elementHandle) {
         // Center main frame vertical middle
         $(window).resize(function () {
-            var elementLeft = ($(window).width() - elementHandle.outerWidth()) / 2;
-            var elementTop = ($(window).height() - elementHandle.outerHeight()) / 2;
+            var elementLeft =
+                ($(window).width() - elementHandle.outerWidth()) / 2;
+            var elementTop =
+                ($(window).height() - elementHandle.outerHeight()) / 2;
             elementTop = elementTop > 0 ? elementTop : 20;
 
             elementHandle.css({
-                position: 'absolute',
+                position: "absolute",
                 left: elementLeft,
-                top: elementTop
+                top: elementTop,
             });
         });
         $(window).resize();
@@ -125,13 +124,13 @@ window.GeneralFunctions = window.GeneralFunctions || {};
      * @return {String} Returns the parameter value.
      */
     exports.getUrlParameter = function (url, parameterName) {
-        var parsedUrl = url.substr(url.indexOf('?')).slice(1).split('&');
+        var parsedUrl = url.substr(url.indexOf("?")).slice(1).split("&");
 
         for (var index in parsedUrl) {
-            var parsedValue = parsedUrl[index].split('=');
+            var parsedValue = parsedUrl[index].split("=");
 
             if (parsedValue.length === 1 && parsedValue[0] === parameterName) {
-                return '';
+                return "";
             }
 
             if (parsedValue.length === 2 && parsedValue[0] === parameterName) {
@@ -139,7 +138,7 @@ window.GeneralFunctions = window.GeneralFunctions || {};
             }
         }
 
-        return '';
+        return "";
     };
 
     /**
@@ -154,15 +153,23 @@ window.GeneralFunctions = window.GeneralFunctions || {};
      */
     exports.ISODateString = function (date) {
         function pad(n) {
-            return n < 10 ? '0' + n : n;
+            return n < 10 ? "0" + n : n;
         }
 
-        return date.getUTCFullYear() + '-'
-            + pad(date.getUTCMonth() + 1) + '-'
-            + pad(date.getUTCDate()) + 'T'
-            + pad(date.getUTCHours()) + ':'
-            + pad(date.getUTCMinutes()) + ':'
-            + pad(date.getUTCSeconds()) + 'Z';
+        return (
+            date.getUTCFullYear() +
+            "-" +
+            pad(date.getUTCMonth() + 1) +
+            "-" +
+            pad(date.getUTCDate()) +
+            "T" +
+            pad(date.getUTCHours()) +
+            ":" +
+            pad(date.getUTCMinutes()) +
+            ":" +
+            pad(date.getUTCSeconds()) +
+            "Z"
+        );
     };
 
     /**
@@ -179,7 +186,7 @@ window.GeneralFunctions = window.GeneralFunctions || {};
      */
     exports.clone = function (originalObject) {
         // Handle the 3 simple types, and null or undefined
-        if (!originalObject || typeof originalObject !== 'object') {
+        if (!originalObject || typeof originalObject !== "object") {
             return originalObject;
         }
 
@@ -211,7 +218,7 @@ window.GeneralFunctions = window.GeneralFunctions || {};
             return copy;
         }
 
-        throw new Error('Unable to copy obj! Its type isn\'t supported.');
+        throw new Error("Unable to copy obj! Its type isn't supported.");
     };
 
     /**
@@ -227,10 +234,10 @@ window.GeneralFunctions = window.GeneralFunctions || {};
      * @return {Boolean} Returns the validation result.
      */
     exports.validateEmail = function (email) {
-        var re = /^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$/;
+        var re =
+            /^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$/;
         return re.test(email);
     };
-
 
     /**
      * Makes the first letter of the string upper case.
@@ -253,55 +260,58 @@ window.GeneralFunctions = window.GeneralFunctions || {};
      */
     exports.enableLanguageSelection = function ($element) {
         // Select Language
-        var $languageList = $('<ul/>', {
-            'id': 'language-list',
-            'html': availableLanguages.map(function (availableLanguage) {
-                return $('<li/>', {
-                    'class': 'language',
-                    'data-language': availableLanguage,
-                    'text': GeneralFunctions.upperCaseFirstLetter(availableLanguage)
-                })
-            })
+        var $languageList = $("<ul/>", {
+            id: "language-list",
+            html: availableLanguages.map(function (availableLanguage) {
+                return $("<li/>", {
+                    class: "language",
+                    "data-language": availableLanguage,
+                    text: GeneralFunctions.upperCaseFirstLetter(
+                        availableLanguage
+                    ),
+                });
+            }),
         });
 
         $element.popover({
-            placement: 'top',
-            title: 'Select Language',
+            placement: "top",
+            title: "Select Language",
             content: $languageList[0],
             html: true,
-            container: 'body',
-            trigger: 'manual'
+            container: "body",
+            trigger: "manual",
         });
 
-        $element.on('click', function (event) {
+        $element.on("click", function (event) {
             event.stopPropagation();
 
-            if ($('#language-list').length === 0) {
-                $(this).popover('show');
+            if ($("#language-list").length === 0) {
+                $(this).popover("show");
             } else {
-                $(this).popover('hide');
+                $(this).popover("hide");
             }
 
-            $(this).toggleClass('active');
+            $(this).toggleClass("active");
         });
 
-        $(document).on('click', 'li.language', function () {
+        $(document).on("click", "li.language", function () {
             // Change language with ajax call and refresh page.
-            var url = GlobalVariables.baseUrl + '/index.php/localization/ajax_change_language';
+            var url =
+                GlobalVariables.baseUrl +
+                "/index.php/localization/ajax_change_language";
 
             var data = {
                 csrfToken: GlobalVariables.csrfToken,
-                language: $(this).attr('data-language')
+                language: $(this).attr("data-language"),
             };
 
-            $.post(url, data)
-                .done(function () {
-                    document.location.reload(true);
-                });
+            $.post(url, data).done(function () {
+                document.location.reload(true);
+            });
         });
 
-        $(document).on('click', function () {
-            $element.popover('hide');
+        $(document).on("click", function () {
+            $element.popover("hide");
         });
     };
 
@@ -313,32 +323,40 @@ window.GeneralFunctions = window.GeneralFunctions || {};
      * @param {Object} errorThrown
      */
     exports.ajaxFailureHandler = function (jqXHR, textStatus, errorThrown) {
-        console.error('Unexpected HTTP Error: ', jqXHR, textStatus, errorThrown);
+        console.error(
+            "Unexpected HTTP Error: ",
+            jqXHR,
+            textStatus,
+            errorThrown
+        );
 
         var response;
 
         try {
             response = JSON.parse(jqXHR.responseText); // JSON response
         } catch (error) {
-            response = {message: jqXHR.responseText}; // String response
+            response = { message: jqXHR.responseText }; // String response
         }
 
         if (!response || !response.message) {
             return;
         }
 
-        GeneralFunctions.displayMessageBox(EALang.unexpected_issues, EALang.unexpected_issues_message);
+        GeneralFunctions.displayMessageBox(
+            EALang.unexpected_issues,
+            EALang.unexpected_issues_message
+        );
 
-        $('<div/>', {
-            'class': 'card',
-            'html': [
-                $('<div/>', {
-                    'class': 'card-body',
-                    'html': response.message || '→ No error information provided.'
-                })
-            ]
-        })
-            .appendTo('#message-box');
+        $("<div/>", {
+            class: "card",
+            html: [
+                $("<div/>", {
+                    class: "card-body",
+                    html:
+                        response.message || "→ No error information provided.",
+                }),
+            ],
+        }).appendTo("#message-box");
     };
 
     /**
@@ -349,7 +367,7 @@ window.GeneralFunctions = window.GeneralFunctions || {};
      * @return {String} Returns the escaped string.
      */
     exports.escapeHtml = function (content) {
-        return $('<div/>').text(content).html();
+        return $("<div/>").text(content).html();
     };
 
     /**
@@ -362,8 +380,9 @@ window.GeneralFunctions = window.GeneralFunctions || {};
      * @return {String} Returns the formatted date string.
      */
     exports.formatDate = function (date, dateFormatSetting, addHours) {
-        var timeFormat = GlobalVariables.timeFormat === 'regular' ? 'h:mm tt' : 'HH:mm';
-        var hours = addHours ? ' ' + timeFormat : '';
+        var timeFormat =
+            GlobalVariables.timeFormat === "regular" ? "h:mm tt" : "HH:mm";
+        var hours = addHours ? " " + timeFormat : "";
         var result;
         var parsedDate = Date.parse(date);
 
@@ -372,22 +391,24 @@ window.GeneralFunctions = window.GeneralFunctions || {};
         }
 
         switch (dateFormatSetting) {
-            case 'DMY':
-                result = parsedDate.toString('dd/MM/yyyy' + hours);
+            case "DMY":
+                result = parsedDate.toString("dd/MM/yyyy" + hours);
                 break;
-            case 'MDY':
-                result = parsedDate.toString('MM/dd/yyyy' + hours);
+            case "MDY":
+                result = parsedDate.toString("MM/dd/yyyy" + hours);
                 break;
-            case 'YMD':
-                result = parsedDate.toString('yyyy/MM/dd' + hours);
+            case "YMD":
+                result = parsedDate.toString("yyyy/MM/dd" + hours);
                 break;
             default:
-                throw new Error('Invalid date format setting provided!', dateFormatSetting);
+                throw new Error(
+                    "Invalid date format setting provided!",
+                    dateFormatSetting
+                );
         }
 
         return result;
     };
-
 
     /**
      * Get the Id of a Weekday using the US week format and day names (Sunday=0) as used in the JS code of the
@@ -402,44 +423,43 @@ window.GeneralFunctions = window.GeneralFunctions || {};
         var result;
 
         switch (weekDayName.toLowerCase()) {
-
-            case 'sunday':
-            case 'sun':
+            case "sunday":
+            case "sun":
                 result = 0;
                 break;
 
-            case 'monday':
-            case 'mon':
+            case "monday":
+            case "mon":
                 result = 1;
                 break;
 
-            case 'tuesday':
-            case 'tue':
+            case "tuesday":
+            case "tue":
                 result = 2;
                 break;
 
-            case 'wednesday':
-            case 'wed':
+            case "wednesday":
+            case "wed":
                 result = 3;
                 break;
 
-            case 'thursday':
-            case 'thu':
+            case "thursday":
+            case "thu":
                 result = 4;
                 break;
 
-            case 'friday':
-            case 'fri':
+            case "friday":
+            case "fri":
                 result = 5;
                 break;
 
-            case 'saturday':
-            case 'sat':
+            case "saturday":
+            case "sat":
                 result = 6;
                 break;
 
             default:
-                throw new Error('Invalid weekday name provided!', weekDayName);
+                throw new Error("Invalid weekday name provided!", weekDayName);
         }
 
         return result;
@@ -456,37 +476,36 @@ window.GeneralFunctions = window.GeneralFunctions || {};
         var result;
 
         switch (weekDayId) {
-
             case 0:
-                result = 'sunday';
+                result = "sunday";
                 break;
 
             case 1:
-                result = 'monday';
+                result = "monday";
                 break;
 
             case 2:
-                result = 'tuesday';
+                result = "tuesday";
                 break;
 
             case 3:
-                result = 'wednesday';
+                result = "wednesday";
                 break;
 
             case 4:
-                result = 'thursday';
+                result = "thursday";
                 break;
 
             case 5:
-                result = 'friday';
+                result = "friday";
                 break;
 
             case 6:
-                result = 'saturday';
+                result = "saturday";
                 break;
 
             default:
-                throw new Error('Invalid weekday Id provided!', weekDayId);
+                throw new Error("Invalid weekday Id provided!", weekDayId);
         }
 
         return result;
@@ -538,23 +557,22 @@ window.GeneralFunctions = window.GeneralFunctions || {};
         }
 
         if (!data.length) {
-            return '';
+            return "";
         }
 
-        return $('<div/>', {
-            'html': [
-                $('<a/>', {
-                    'href': 'https://www.google.com/maps/place/' + data.join(','),
-                    'target': '_blank',
-                    'html': [
-                        $('<span/>', {
-                            'class': 'fas fa-map-marker-alt'
-                        })
-                    ]
-                })
-            ]
-        })
-            .html();
+        return $("<div/>", {
+            html: [
+                $("<a/>", {
+                    href: "https://www.google.com/maps/place/" + data.join(","),
+                    target: "_blank",
+                    html: [
+                        $("<span/>", {
+                            class: "fas fa-map-marker-alt",
+                        }),
+                    ],
+                }),
+            ],
+        }).html();
     };
 
     /**
@@ -565,20 +583,19 @@ window.GeneralFunctions = window.GeneralFunctions || {};
      * @return {string} The rendered HTML.
      */
     exports.renderMailIcon = function (email) {
-        return $('<div/>', {
-            'html': [
-                $('<a/>', {
-                    'href': 'mailto:' + email,
-                    'target': '_blank',
-                    'html': [
-                        $('<span/>', {
-                            'class': 'fas fa-envelope'
-                        })
-                    ]
-                })
-            ]
-        })
-            .html();
+        return $("<div/>", {
+            html: [
+                $("<a/>", {
+                    href: "mailto:" + email,
+                    target: "_blank",
+                    html: [
+                        $("<span/>", {
+                            class: "fas fa-envelope",
+                        }),
+                    ],
+                }),
+            ],
+        }).html();
     };
 
     /**
@@ -589,20 +606,19 @@ window.GeneralFunctions = window.GeneralFunctions || {};
      * @return {string} The rendered HTML.
      */
     exports.renderPhoneIcon = function (phone) {
-        return $('<div/>', {
-            'html': [
-                $('<a/>', {
-                    'href': 'tel:' + phone,
-                    'target': '_blank',
-                    'html': [
-                        $('<span/>', {
-                            'class': 'fas fa-phone-alt'
-                        })
-                    ]
-                })
-            ]
-        })
-            .html();
+        return $("<div/>", {
+            html: [
+                $("<a/>", {
+                    href: "tel:" + phone,
+                    target: "_blank",
+                    html: [
+                        $("<span/>", {
+                            class: "fas fa-phone-alt",
+                        }),
+                    ],
+                }),
+            ],
+        }).html();
     };
 
     /**
@@ -619,21 +635,22 @@ window.GeneralFunctions = window.GeneralFunctions || {};
         // It's necessary to manually parse the date because Date.parse() not support some formats tha instead are
         // supported by Easy!Appointments. The unsupported format is dd/MM/yyyy.
         switch (dateFormatSetting) {
-            case 'DMY':
-                dayArray = date.split('/');
-                date = dayArray[2] + '-' + dayArray[1] + '-' + dayArray[0];
+            case "DMY":
+                dayArray = date.split("/");
+                date = dayArray[2] + "-" + dayArray[1] + "-" + dayArray[0];
                 break;
-            case 'MDY':
-                dayArray = date.split('/');
-                date = dayArray[2] + '-' + dayArray[0] + '-' + dayArray[1];
+            case "MDY":
+                dayArray = date.split("/");
+                date = dayArray[2] + "-" + dayArray[0] + "-" + dayArray[1];
                 break;
-            case 'YMD':
-                date = date.replace('/', '-');
+            case "YMD":
+                date = date.replace("/", "-");
                 break;
             default:
-                throw new Error('Invalid date format setting provided:' + dateFormatSetting);
+                throw new Error(
+                    "Invalid date format setting provided:" + dateFormatSetting
+                );
         }
         return date;
-    }
-
+    };
 })(window.GeneralFunctions);

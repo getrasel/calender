@@ -5,7 +5,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.0.0
  * ---------------------------------------------------------------------------- */
 
@@ -16,13 +16,15 @@
 }
 
 body .ui-widget {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-size: 1.1em;
 }
 
 body .ui-widget-overlay {
     background: #000 50% 50% repeat-x;
-    opacity: .5;
+    opacity: 0.5;
     filter: Alpha(Opacity=50);
 }
 
@@ -32,7 +34,7 @@ body .ui-dialog .ui-dialog-titlebar-close {
 
 body .ui-draggable .ui-dialog-titlebar {
     background: #14cedd;
-    color: #FFF;
+    color: #fff;
     font-size: 1.2em;
     font-weight: lighter;
     padding: 12px 10px;
@@ -49,7 +51,7 @@ body .ui-dialog {
 }
 
 body .ui-dialog .ui-dialog-buttonpane {
-    padding: .3em 1em .3em .4em;
+    padding: 0.3em 1em 0.3em 0.4em;
     border: none;
 }
 
@@ -59,7 +61,7 @@ body .ui-dialog .ui-dialog-buttonpane .btn {
 
 body .ui-button .ui-icon,
 body .ui-button:hover .ui-icon {
-    background-image: url('../ext/jquery-ui/images/ui-icons_222222_256x240.png');
+    background-image: url("../ext/jquery-ui/images/ui-icons_222222_256x240.png");
 }
 
 body .ui-dialog #error-technical {
@@ -85,14 +87,14 @@ body .ui-datepicker .ui-widget-header {
     border: none;
     border-radius: 0;
 }
-body .ui-datepicker .ui-datepicker-next{
+body .ui-datepicker .ui-datepicker-next {
     right: 0;
 }
-body .ui-datepicker .ui-datepicker-prev{
+body .ui-datepicker .ui-datepicker-prev {
     left: unset;
     right: 35px;
 }
-body .ui-datepicker .ui-datepicker-title{
+body .ui-datepicker .ui-datepicker-title {
     text-align: left;
     margin: 0;
     font-weight: 500;
@@ -100,17 +102,20 @@ body .ui-datepicker .ui-datepicker-title{
 body .ui-datepicker th {
     font-weight: 500;
 }
-body .ui-widget-header{
+body .ui-widget-header {
     background: transparent;
 }
-body .ui-datepicker td span, body .ui-datepicker td a{
+body .ui-datepicker td span,
+body .ui-datepicker td a {
     margin: 4px auto;
 }
-body .ui-datepicker .ui-datepicker-prev span, body .ui-datepicker .ui-datepicker-next span{
+body .ui-datepicker .ui-datepicker-prev span,
+body .ui-datepicker .ui-datepicker-next span {
     margin-left: -7px;
     margin-top: -6px;
 }
-body .ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next{
+body .ui-datepicker .ui-datepicker-prev,
+.ui-datepicker .ui-datepicker-next {
     position: absolute;
     top: calc(50% - 15px);
     width: 30px;
@@ -118,7 +123,7 @@ body .ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next{
     transition: all 0.3s ease-in-out;
     border-radius: 50%;
 }
-body .ui-icon{
+body .ui-icon {
     width: 12px;
     height: 12px;
 }
@@ -134,11 +139,9 @@ body .ui-datepicker .ui-widget-header .ui-icon.ui-icon-circle-triangle-w {
     background-size: contain;
 }
 
-
 body .ui-datepicker .ui-datepicker-title {
     padding: 8px 0px;
 }
-
 
 body .ui-datepicker tbody tr:first-child td {
     margin-top: 5px;
@@ -147,7 +150,9 @@ body .ui-datepicker table {
     width: calc(100% + 34px);
     margin-left: -20px;
 }
-body .ui-datepicker td span, body .ui-datepicker td.ui-state-disabled a, body .ui-datepicker td.ui-datepicker-unselectable a {
+body .ui-datepicker td span,
+body .ui-datepicker td.ui-state-disabled a,
+body .ui-datepicker td.ui-datepicker-unselectable a {
     border: none !important;
     background: none !important;
     text-align: center !important;
@@ -160,9 +165,9 @@ body .ui-datepicker td span, body .ui-datepicker td.ui-state-disabled a, body .u
     color: #454545 !important;
 }
 
-body .ui-datepicker td a{
+body .ui-datepicker td a {
     border: none !important;
-    background: #EEF5FF !important;
+    background: #eef5ff !important;
     color: #14cedd !important;
     text-align: center !important;
     width: 44px;
@@ -174,8 +179,8 @@ body .ui-datepicker td a{
     justify-content: center;
 }
 
-html body .ui-datepicker td a.ui-state-active{
-    color: #FFF !important;
+html body .ui-datepicker td a.ui-state-active {
+    color: #fff !important;
     font-weight: bold !important;
     background: #14cedd !important;
     border-radius: 50px;
@@ -187,7 +192,7 @@ html body .ui-datepicker td a.ui-state-active{
 
 body .ui-datepicker td a.ui-state-highlight {
     border: none !important;
-    background: #EEF5FF !important;
+    background: #eef5ff !important;
     color: #14cedd !important;
     text-align: center !important;
     width: 44px;
@@ -197,12 +202,20 @@ body .ui-datepicker td a.ui-state-highlight {
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
-body .ui-state-disabled, body .ui-widget-content .ui-state-disabled, body .ui-widget-header .ui-state-disabled{
+body .ui-state-disabled,
+body .ui-widget-content .ui-state-disabled,
+body .ui-widget-header .ui-state-disabled {
     background-color: none !important;
 }
-body .ui-state-hover, body .ui-widget-content .ui-state-hover, body .ui-widget-header .ui-state-hover, body .ui-state-focus, body .ui-widget-content .ui-state-focus, body .ui-widget-header .ui-state-focus, body .ui-button:hover, .ui-button:focus {
+body .ui-state-hover,
+body .ui-widget-content .ui-state-hover,
+body .ui-widget-header .ui-state-hover,
+body .ui-state-focus,
+body .ui-widget-content .ui-state-focus,
+body .ui-widget-header .ui-state-focus,
+body .ui-button:hover,
+.ui-button:focus {
     border: none;
     background-color: none !important;
 }
@@ -228,10 +241,13 @@ body .ui-widget-header .ui-priority-primary {
     font-weight: normal;
 }
 
-body .ui-widget input, .ui-widget select,
+body .ui-widget input,
+.ui-widget select,
 body .ui-widget textarea,
 body .ui-widget button {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-size: 1rem;
 }
 
@@ -240,7 +256,7 @@ body .ui-datepicker .ui-datepicker-buttonpane button {
 }
 
 .breaks tr:hover td {
-    background: #FFFFC2 !important;
+    background: #ffffc2 !important;
 }
 
 .working-plan td {
@@ -374,13 +390,13 @@ li.language:hover {
 
 .ui-timepicker-div.ui-timepicker-oneLine dl dd.ui_tpicker_minute:before,
 .ui-timepicker-div.ui-timepicker-oneLine dl dd.ui_tpicker_second:before {
-    content: ':';
+    content: ":";
     display: inline-block;
 }
 
 .ui-timepicker-div.ui-timepicker-oneLine dl dd.ui_tpicker_millisec:before,
 .ui-timepicker-div.ui-timepicker-oneLine dl dd.ui_tpicker_microsec:before {
-    content: '.';
+    content: ".";
     display: inline-block;
 }
 
@@ -398,7 +414,7 @@ li.language:hover {
 
 .is-loading:before,
 .is-loading:after {
-    content: '';
+    content: "";
     position: absolute;
     top: 50%;
     left: 50%;
@@ -409,7 +425,7 @@ li.language:hover {
     height: 60px;
     margin: -25px 0 0 -25px;
 
-    border: 5px solid rgba(0, 0, 0, .4);
+    border: 5px solid rgba(0, 0, 0, 0.4);
     border-radius: 50px;
 }
 
@@ -466,7 +482,7 @@ body .popover-body button {
     box-sizing: border-box;
     margin: 0;
     height: 2.1em;
-    padding: 0 .6em;
+    padding: 0 0.6em;
 }
 
 body .popover-body a {

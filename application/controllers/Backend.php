@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     https://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        https://easyappointments.org
+ * @link        https://calendars.davehansen.com
  * @since       v1.0.0
  * ---------------------------------------------------------------------------- */
 
@@ -18,7 +18,8 @@
  *
  * @package Controllers
  */
-class Backend extends EA_Controller {
+class Backend extends EA_Controller
+{
     /**
      * Class Constructor
      */
@@ -52,10 +53,9 @@ class Backend extends EA_Controller {
      */
     public function index($appointment_hash = '')
     {
-        $this->session->set_userdata('dest_url', site_url('backend/index' . (! empty($appointment_hash) ? '/' . $appointment_hash : '')));
+        $this->session->set_userdata('dest_url', site_url('backend/index' . (!empty($appointment_hash) ? '/' . $appointment_hash : '')));
 
-        if ( ! $this->has_privileges(PRIV_APPOINTMENTS))
-        {
+        if (!$this->has_privileges(PRIV_APPOINTMENTS)) {
             return;
         }
 
@@ -77,25 +77,21 @@ class Backend extends EA_Controller {
         $view['available_providers'] = $this->providers_model->get_available_providers();
         $view['available_services'] = $this->services_model->get_available_services();
         $view['customers'] = $this->customers_model->get_batch();
-        $view['calendar_view'] = ! empty($calendar_view_query_param) ? $calendar_view_query_param : $user['settings']['calendar_view'];
+        $view['calendar_view'] = !empty($calendar_view_query_param) ? $calendar_view_query_param : $user['settings']['calendar_view'];
         $view['timezones'] = $this->timezones->to_array();
         $this->set_user_data($view);
 
-        if ($this->session->userdata('role_slug') === DB_SLUG_SECRETARY)
-        {
+        if ($this->session->userdata('role_slug') === DB_SLUG_SECRETARY) {
             $secretary = $this->secretaries_model->get_row($this->session->userdata('user_id'));
             $view['secretary_providers'] = $secretary['providers'];
             $view['available_providers'] = array_values(array_filter($view['available_providers'], function ($available_provider) use ($secretary) {
                 return in_array($available_provider['id'], $secretary['providers']);
             }));
-        }
-        else
-        {
+        } else {
             $view['secretary_providers'] = [];
         }
 
-        if ($this->session->userdata('role_slug') === DB_SLUG_PROVIDER)
-        {
+        if ($this->session->userdata('role_slug') === DB_SLUG_PROVIDER) {
             $view['available_providers'] = array_values(array_filter($view['available_providers'], function ($available_provider) use ($user_id) {
                 return $available_provider['id'] === $user_id;
             }));
@@ -103,14 +99,11 @@ class Backend extends EA_Controller {
 
         $results = $this->appointments_model->get_batch(['hash' => $appointment_hash]);
 
-        if ($appointment_hash !== '' && count($results) > 0)
-        {
+        if ($appointment_hash !== '' && count($results) > 0) {
             $appointment = $results[0];
             $appointment['customer'] = $this->customers_model->get_row($appointment['id_users_customer']);
             $view['edit_appointment'] = $appointment; // This will display the appointment edit dialog on page load.
-        }
-        else
-        {
+        } else {
             $view['edit_appointment'] = NULL;
         }
 
@@ -140,11 +133,9 @@ class Backend extends EA_Controller {
         // Check if user is logged in.
         $user_id = $this->session->userdata('user_id');
 
-        if ($user_id == FALSE)
-        {
+        if ($user_id == FALSE) {
             // User not logged in, display the login view.
-            if ($redirect)
-            {
+            if ($redirect) {
                 header('Location: ' . site_url('user/login'));
             }
             return FALSE;
@@ -155,11 +146,9 @@ class Backend extends EA_Controller {
 
         $role_privileges = $this->db->get_where('roles', ['slug' => $role_slug])->row_array();
 
-        if ($role_privileges[$page] < PRIV_VIEW)
-        {
+        if ($role_privileges[$page] < PRIV_VIEW) {
             // User does not have the permission to view the page.
-            if ($redirect)
-            {
+            if ($redirect) {
                 header('Location: ' . site_url('user/no_privileges'));
             }
             return FALSE;
@@ -191,8 +180,7 @@ class Backend extends EA_Controller {
     {
         $this->session->set_userdata('dest_url', site_url('backend/customers'));
 
-        if ( ! $this->has_privileges(PRIV_CUSTOMERS))
-        {
+        if (!$this->has_privileges(PRIV_CUSTOMERS)) {
             return;
         }
 
@@ -210,13 +198,10 @@ class Backend extends EA_Controller {
         $view['available_services'] = $this->services_model->get_available_services();
         $view['timezones'] = $this->timezones->to_array();
 
-        if ($this->session->userdata('role_slug') === DB_SLUG_SECRETARY)
-        {
+        if ($this->session->userdata('role_slug') === DB_SLUG_SECRETARY) {
             $secretary = $this->secretaries_model->get_row($this->session->userdata('user_id'));
             $view['secretary_providers'] = $secretary['providers'];
-        }
-        else
-        {
+        } else {
             $view['secretary_providers'] = [];
         }
 
@@ -239,8 +224,7 @@ class Backend extends EA_Controller {
     {
         $this->session->set_userdata('dest_url', site_url('backend/services'));
 
-        if ( ! $this->has_privileges(PRIV_SERVICES))
-        {
+        if (!$this->has_privileges(PRIV_SERVICES)) {
             return;
         }
 
@@ -272,8 +256,7 @@ class Backend extends EA_Controller {
     {
         $this->session->set_userdata('dest_url', site_url('backend/users'));
 
-        if ( ! $this->has_privileges(PRIV_USERS))
-        {
+        if (!$this->has_privileges(PRIV_USERS)) {
             return;
         }
 
@@ -309,9 +292,10 @@ class Backend extends EA_Controller {
     public function settings()
     {
         $this->session->set_userdata('dest_url', site_url('backend/settings'));
-        if ( ! $this->has_privileges(PRIV_SYSTEM_SETTINGS, FALSE)
-            && ! $this->has_privileges(PRIV_USER_SETTINGS))
-        {
+        if (
+            !$this->has_privileges(PRIV_SYSTEM_SETTINGS, FALSE)
+            && !$this->has_privileges(PRIV_USER_SETTINGS)
+        ) {
             return;
         }
 
@@ -354,22 +338,17 @@ class Backend extends EA_Controller {
      */
     public function update()
     {
-        try
-        {
-            if ( ! $this->has_privileges(PRIV_SYSTEM_SETTINGS, TRUE))
-            {
+        try {
+            if (!$this->has_privileges(PRIV_SYSTEM_SETTINGS, TRUE)) {
                 throw new Exception('You do not have the required privileges for this task!');
             }
 
-            if ( ! $this->migration->latest())
-            {
+            if (!$this->migration->latest()) {
                 throw new Exception($this->migration->error_string());
             }
 
             $view = ['success' => TRUE];
-        }
-        catch (Exception $exception)
-        {
+        } catch (Exception $exception) {
             $view = ['success' => FALSE, 'exception' => $exception->getMessage()];
         }
 

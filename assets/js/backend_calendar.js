@@ -5,7 +5,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.0.0
  * ---------------------------------------------------------------------------- */
 
@@ -19,19 +19,21 @@
 window.BackendCalendar = window.BackendCalendar || {};
 
 (function (exports) {
-
-    'use strict';
+    "use strict";
 
     /**
      * Bind common event handlers.
      */
     function bindEventHandlers() {
-        var $calendarPage = $('#calendar-page');
+        var $calendarPage = $("#calendar-page");
 
-        $calendarPage.on('click', '#toggle-fullscreen', function () {
+        $calendarPage.on("click", "#toggle-fullscreen", function () {
             var $toggleFullscreen = $(this);
             var element = document.documentElement;
-            var isFullScreen = document.fullScreenElement || document.mozFullScreen || document.webkitIsFullScreen;
+            var isFullScreen =
+                document.fullScreenElement ||
+                document.mozFullScreen ||
+                document.webkitIsFullScreen;
 
             if (isFullScreen) {
                 // Exit fullscreen mode.
@@ -46,8 +48,8 @@ window.BackendCalendar = window.BackendCalendar || {};
                 }
 
                 $toggleFullscreen
-                    .removeClass('btn-success')
-                    .addClass('btn-light');
+                    .removeClass("btn-success")
+                    .addClass("btn-light");
             } else {
                 // Switch to fullscreen mode.
                 if (element.requestFullscreen) {
@@ -60,46 +62,66 @@ window.BackendCalendar = window.BackendCalendar || {};
                     element.webkitRequestFullscreen();
                 }
                 $toggleFullscreen
-                    .removeClass('btn-light')
-                    .addClass('btn-success');
+                    .removeClass("btn-light")
+                    .addClass("btn-success");
             }
         });
 
-        $('#insert-working-plan-exception').on('click', function () {
-            var providerId = $('#select-filter-item').val();
+        $("#insert-working-plan-exception").on("click", function () {
+            var providerId = $("#select-filter-item").val();
 
-            var provider = GlobalVariables.availableProviders.find(function (availableProvider) {
+            var provider = GlobalVariables.availableProviders.find(function (
+                availableProvider
+            ) {
                 return Number(availableProvider.id) === Number(providerId);
             });
 
             if (!provider) {
-                throw new Error('Provider could not be found: ' + providerId);
+                throw new Error("Provider could not be found: " + providerId);
             }
 
-            WorkingPlanExceptionsModal
-                .add()
-                .done(function (date, workingPlanException) {
-                    var successCallback = function () {
-                        Backend.displayNotification(EALang.working_plan_exception_saved);
+            WorkingPlanExceptionsModal.add().done(function (
+                date,
+                workingPlanException
+            ) {
+                var successCallback = function () {
+                    Backend.displayNotification(
+                        EALang.working_plan_exception_saved
+                    );
 
-                        var workingPlanExceptions = JSON.parse(provider.settings.working_plan_exceptions) || {};
+                    var workingPlanExceptions =
+                        JSON.parse(provider.settings.working_plan_exceptions) ||
+                        {};
 
-                        workingPlanExceptions[date] = workingPlanException;
+                    workingPlanExceptions[date] = workingPlanException;
 
-                        for (var index in GlobalVariables.availableProviders) {
-                            var availableProvider = GlobalVariables.availableProviders[index];
+                    for (var index in GlobalVariables.availableProviders) {
+                        var availableProvider =
+                            GlobalVariables.availableProviders[index];
 
-                            if (Number(availableProvider.id) === Number(providerId)) {
-                                GlobalVariables.availableProviders[index].settings.working_plan_exceptions = JSON.stringify(workingPlanExceptions);
-                                break;
-                            }
+                        if (
+                            Number(availableProvider.id) === Number(providerId)
+                        ) {
+                            GlobalVariables.availableProviders[
+                                index
+                            ].settings.working_plan_exceptions = JSON.stringify(
+                                workingPlanExceptions
+                            );
+                            break;
                         }
+                    }
 
-                        $('#select-filter-item').trigger('change'); // Update the calendar.
-                    };
+                    $("#select-filter-item").trigger("change"); // Update the calendar.
+                };
 
-                    BackendCalendarApi.saveWorkingPlanException(date, workingPlanException, providerId, successCallback, null);
-                });
+                BackendCalendarApi.saveWorkingPlanException(
+                    date,
+                    workingPlanException,
+                    providerId,
+                    successCallback,
+                    null
+                );
+            });
         });
     }
 
@@ -117,7 +139,7 @@ window.BackendCalendar = window.BackendCalendar || {};
         BackendCalendarUnavailabilityEventsModal.initialize();
 
         // Load and initialize the calendar view.
-        if (view === 'table') {
+        if (view === "table") {
             BackendCalendarTableView.initialize();
         } else {
             BackendCalendarDefaultView.initialize();
@@ -125,5 +147,4 @@ window.BackendCalendar = window.BackendCalendar || {};
 
         bindEventHandlers();
     };
-
 })(window.BackendCalendar);

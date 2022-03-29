@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     https://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        https://easyappointments.org
+ * @link        https://calendars.davehansen.com
  * @since       v1.3.2
  * ---------------------------------------------------------------------------- */
 
@@ -18,7 +18,8 @@
  *
  * @package Controllers
  */
-class Consents extends EA_Controller {
+class Consents extends EA_Controller
+{
     /**
      * Consents constructor.
      */
@@ -33,8 +34,7 @@ class Consents extends EA_Controller {
      */
     public function ajax_save_consent()
     {
-        try
-        {
+        try {
             $consent = $this->input->post('consent');
 
             $consent['ip'] = $this->input->ip_address();
@@ -45,9 +45,7 @@ class Consents extends EA_Controller {
                 'success' => TRUE,
                 'id' => $consent['id']
             ];
-        }
-        catch (Exception $exception)
-        {
+        } catch (Exception $exception) {
             $this->output->set_status_header(500);
 
             $response = [

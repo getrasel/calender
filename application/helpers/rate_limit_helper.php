@@ -7,12 +7,11 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.1.0
  * ---------------------------------------------------------------------------- */
 
-if ( ! function_exists('rate_limit'))
-{
+if (!function_exists('rate_limit')) {
     /**
      * Rate-limit the application requests.
      *
@@ -28,12 +27,11 @@ if ( ! function_exists('rate_limit'))
      */
     function rate_limit($ip, $max_requests = 100, $duration = 120)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
 
         $rate_limiting = $CI->config->item('rate_limiting');
 
-        if ( ! $rate_limiting)
-        {
+        if (!$rate_limiting) {
             return;
         }
 
@@ -52,30 +50,25 @@ if ( ! function_exists('rate_limit'))
             $CI->cache->save($cache_key, 1, $duration);
 
             $CI->cache->save($cache_remain_time_key, $current_time_plus, $duration * 2);
-        }
-        else // Consequent request
+        } else // Consequent request
         {
             $requests = $CI->cache->get($cache_key);
 
             $time_lost = $CI->cache->get($cache_remain_time_key);
 
-            if ($current_time > $time_lost)
-            {
+            if ($current_time > $time_lost) {
                 $current_time_plus = date('Y-m-d H:i:s', strtotime('+' . $duration . ' seconds'));
 
                 $CI->cache->save($cache_key, 1, $duration);
 
                 $CI->cache->save($cache_remain_time_key, $current_time_plus, $duration * 2);
-            }
-            else
-            {
+            } else {
                 $CI->cache->save($cache_key, $requests + 1, $duration);
             }
 
             $requests = $CI->cache->get($cache_key);
 
-            if ($requests > $max_requests)
-            {
+            if ($requests > $max_requests) {
                 header('HTTP/1.0 429 Too Many Requests');
                 exit;
             }

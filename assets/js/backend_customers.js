@@ -5,7 +5,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.0.0
  * ---------------------------------------------------------------------------- */
 
@@ -21,8 +21,7 @@ window.BackendCustomers = window.BackendCustomers || {};
  * @module BackendCustomers
  */
 (function (exports) {
-
-    'use strict';
+    "use strict";
 
     /**
      * The page helper contains methods that implement each record type functionality
@@ -44,12 +43,12 @@ window.BackendCustomers = window.BackendCustomers || {};
 
         // Add the available languages to the language dropdown.
         availableLanguages.forEach(function (language) {
-            $('#language').append(new Option(language, language));
+            $("#language").append(new Option(language, language));
         });
 
         helper = new CustomersHelper();
         helper.resetForm();
-        helper.filter('');
+        helper.filter("");
         helper.bindEventHandlers();
 
         if (defaultEventHandlers) {
@@ -63,5 +62,4 @@ window.BackendCustomers = window.BackendCustomers || {};
     function bindEventHandlers() {
         //
     }
-
 })(window.BackendCustomers);

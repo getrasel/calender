@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.2.0
  * ---------------------------------------------------------------------------- */
 
@@ -20,7 +20,8 @@ namespace EA\Engine\Api\V1\Parsers;
  *
  * @deprecated
  */
-class Providers implements ParsersInterface {
+class Providers implements ParsersInterface
+{
     /**
      * Encode Response Array
      *
@@ -43,13 +44,11 @@ class Providers implements ParsersInterface {
             'timezone' => $response['timezone'],
         ];
 
-        if (array_key_exists('services', $response))
-        {
+        if (array_key_exists('services', $response)) {
             $encoded_response['services'] = $response['services'];
         }
 
-        if (array_key_exists('settings', $response))
-        {
+        if (array_key_exists('settings', $response)) {
             $encoded_response['settings'] = [
                 'username' => $response['settings']['username'],
                 'notifications' => filter_var($response['settings']['notifications'], FILTER_VALIDATE_BOOLEAN),
@@ -91,132 +90,110 @@ class Providers implements ParsersInterface {
     {
         $decoded_request = $base ?: [];
 
-        if (array_key_exists('id', $request))
-        {
+        if (array_key_exists('id', $request)) {
             $decoded_request['id'] = $request['id'];
         }
 
-        if (array_key_exists('firstName', $request))
-        {
+        if (array_key_exists('firstName', $request)) {
             $decoded_request['first_name'] = $request['firstName'];
         }
 
-        if (array_key_exists('lastName', $request))
-        {
+        if (array_key_exists('lastName', $request)) {
             $decoded_request['last_name'] = $request['lastName'];
         }
 
-        if (array_key_exists('email', $request))
-        {
+        if (array_key_exists('email', $request)) {
             $decoded_request['email'] = $request['email'];
         }
 
-        if (array_key_exists('mobile', $request))
-        {
+        if (array_key_exists('mobile', $request)) {
             $decoded_request['mobile_number'] = $request['mobile'];
         }
 
-        if (array_key_exists('phone', $request))
-        {
+        if (array_key_exists('phone', $request)) {
             $decoded_request['phone_number'] = $request['phone'];
         }
 
-        if (array_key_exists('address', $request))
-        {
+        if (array_key_exists('address', $request)) {
             $decoded_request['address'] = $request['address'];
         }
 
-        if (array_key_exists('city', $request))
-        {
+        if (array_key_exists('city', $request)) {
             $decoded_request['city'] = $request['city'];
         }
 
-        if (array_key_exists('state', $request))
-        {
+        if (array_key_exists('state', $request)) {
             $decoded_request['state'] = $request['state'];
         }
 
-        if (array_key_exists('zip', $request))
-        {
+        if (array_key_exists('zip', $request)) {
             $decoded_request['zip_code'] = $request['zip'];
         }
 
-        if (array_key_exists('notes', $request))
-        {
+        if (array_key_exists('notes', $request)) {
             $decoded_request['notes'] = $request['notes'];
         }
 
-        if (array_key_exists('timezone', $request))
-        {
+        if (array_key_exists('timezone', $request)) {
             $decoded_request['timezone'] = $request['timezone'];
         }
 
-        if (array_key_exists('services', $request))
-        {
+        if (array_key_exists('services', $request)) {
             $decoded_request['services'] = $request['services'];
         }
 
-        if (array_key_exists('settings', $request))
-        {
-            if (empty($decoded_request['settings']))
-            {
+        if (array_key_exists('settings', $request)) {
+            if (empty($decoded_request['settings'])) {
                 $decoded_request['settings'] = [];
             }
 
-            if (array_key_exists('username', $request['settings']))
-            {
+            if (array_key_exists('username', $request['settings'])) {
                 $decoded_request['settings']['username'] = $request['settings']['username'];
             }
 
-            if (array_key_exists('password', $request['settings']))
-            {
+            if (array_key_exists('password', $request['settings'])) {
                 $decoded_request['settings']['password'] = $request['settings']['password'];
             }
 
-            if (array_key_exists('calendarView', $request['settings']))
-            {
+            if (array_key_exists('calendarView', $request['settings'])) {
                 $decoded_request['settings']['calendar_view'] = $request['settings']['calendarView'];
             }
 
-            if (array_key_exists('notifications', $request['settings']))
-            {
-                $decoded_request['settings']['notifications'] = filter_var($request['settings']['notifications'],
-                    FILTER_VALIDATE_BOOLEAN);
+            if (array_key_exists('notifications', $request['settings'])) {
+                $decoded_request['settings']['notifications'] = filter_var(
+                    $request['settings']['notifications'],
+                    FILTER_VALIDATE_BOOLEAN
+                );
             }
 
-            if (array_key_exists('googleSync', $request['settings']))
-            {
-                $decoded_request['settings']['google_sync'] = filter_var($request['settings']['googleSync'],
-                    FILTER_VALIDATE_BOOLEAN);
+            if (array_key_exists('googleSync', $request['settings'])) {
+                $decoded_request['settings']['google_sync'] = filter_var(
+                    $request['settings']['googleSync'],
+                    FILTER_VALIDATE_BOOLEAN
+                );
             }
 
-            if (array_key_exists('googleCalendar', $request['settings']))
-            {
+            if (array_key_exists('googleCalendar', $request['settings'])) {
                 $decoded_request['settings']['google_calendar'] = $request['settings']['googleCalendar'];
             }
 
-            if (array_key_exists('googleToken', $request['settings']))
-            {
+            if (array_key_exists('googleToken', $request['settings'])) {
                 $decoded_request['settings']['google_token'] = $request['settings']['googleToken'];
             }
 
-            if (array_key_exists('syncFutureDays', $request['settings']))
-            {
+            if (array_key_exists('syncFutureDays', $request['settings'])) {
                 $decoded_request['settings']['sync_future_days'] = $request['settings']['syncFutureDays'];
             }
 
-            if (array_key_exists('syncPastDays', $request['settings']))
-            {
+            if (array_key_exists('syncPastDays', $request['settings'])) {
                 $decoded_request['settings']['sync_past_days'] = $request['settings']['syncPastDays'];
             }
 
-            if (array_key_exists('workingPlan', $request['settings']))
-            {
+            if (array_key_exists('workingPlan', $request['settings'])) {
                 $decoded_request['settings']['working_plan'] = json_encode($request['settings']['workingPlan']);
             }
 
-            if (array_key_exists('workingPlanExceptions', $request['settings']))
-            {
+            if (array_key_exists('workingPlanExceptions', $request['settings'])) {
                 $decoded_request['settings']['working_plan_exceptions'] = json_encode($request['settings']['workingPlanExceptions']);
             }
         }

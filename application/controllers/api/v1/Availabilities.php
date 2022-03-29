@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     https://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        https://easyappointments.org
+ * @link        https://calendars.davehansen.com
  * @since       v1.2.0
  * ---------------------------------------------------------------------------- */
 
@@ -19,7 +19,8 @@ require_once __DIR__ . '/../../Appointments.php';
  *
  * @package Controllers
  */
-class Availabilities extends API_V1_Controller {
+class Availabilities extends API_V1_Controller
+{
     /**
      * Class Constructor
      */
@@ -41,16 +42,14 @@ class Availabilities extends API_V1_Controller {
      */
     public function get()
     {
-        try
-        {
+        try {
             $provider_id = $this->input->get('providerId');
 
             $service_id = $this->input->get('serviceId');
 
             $date = $this->input->get('date');
 
-            if ( ! $date)
-            {
+            if (!$date) {
                 $date = date('Y-m-d');
             }
 
@@ -63,9 +62,7 @@ class Availabilities extends API_V1_Controller {
             $this->output
                 ->set_content_type('application/json')
                 ->set_output(json_encode($available_hours));
-        }
-        catch (Exception $exception)
-        {
+        } catch (Exception $exception) {
             $this->handle_exception($exception);
         }
     }

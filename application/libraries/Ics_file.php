@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.3.0
  * ---------------------------------------------------------------------------- */
 
@@ -31,7 +31,8 @@ use Jsvrcek\ICS\Utility\Formatter;
  *
  * Notice: The Ics_calendar and Ics_provider classes are used for PHP 8.1 compatibility.
  */
-class Ics_file {
+class Ics_file
+{
     /**
      * @var EA_Controller
      */
@@ -42,7 +43,7 @@ class Ics_file {
      */
     public function __construct()
     {
-        $this->CI =& get_instance();
+        $this->CI = &get_instance();
 
         $this->CI->load->library('ics_provider');
         $this->CI->load->library('ics_calendar');
@@ -78,8 +79,7 @@ class Ics_file {
             ->setSummary($service['name'])
             ->setUid($appointment['id']);
 
-        if ( ! empty($service['location']))
-        {
+        if (!empty($service['location'])) {
             $location = new Location();
             $location->setName((string)$service['location']);
             $event->addLocation($location);
@@ -114,8 +114,7 @@ class Ics_file {
 
         $attendee = new Attendee(new Formatter());
 
-        if (isset($customer['email']) && ! empty($customer['email']))
-        {
+        if (isset($customer['email']) && !empty($customer['email'])) {
             $attendee->setValue($customer['email']);
         }
 
@@ -147,8 +146,7 @@ class Ics_file {
 
         $attendee = new Attendee(new Formatter());
 
-        if (isset($provider['email']) && ! empty($provider['email']))
-        {
+        if (isset($provider['email']) && !empty($provider['email'])) {
             $attendee->setValue($provider['email']);
         }
 

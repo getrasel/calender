@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     https://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        https://easyappointments.org
+ * @link        https://calendars.davehansen.com
  * @since       v1.4.0
  * ---------------------------------------------------------------------------- */
 
@@ -58,7 +58,8 @@
  * @property Synchronization $synchronization
  * @property Timezones $timezones
  */
-class EA_Model extends CI_Model {
+class EA_Model extends CI_Model
+{
     /**
      * EA_Model constructor.
      */

@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     https://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        https://easyappointments.org
+ * @link        https://calendars.davehansen.com
  * @since       v1.4.3
  * ---------------------------------------------------------------------------- */
 
@@ -18,7 +18,8 @@
  *
  * @package Controllers
  */
-class Localization extends EA_Controller {
+class Localization extends EA_Controller
+{
     /**
      * Change system language for current user.
      *
@@ -28,29 +29,24 @@ class Localization extends EA_Controller {
      */
     public function ajax_change_language()
     {
-        try
-        {
+        try {
             // Check if language exists in the available languages.
             $found = FALSE;
 
             $language = $this->input->post('language');
 
-            if (empty($language))
-            {
+            if (empty($language)) {
                 throw new Exception('No language provided.');
             }
 
-            foreach (config('available_languages') as $available_language)
-            {
-                if ($available_language === $language)
-                {
+            foreach (config('available_languages') as $available_language) {
+                if ($available_language === $language) {
                     $found = TRUE;
                     break;
                 }
             }
 
-            if ( ! $found)
-            {
+            if (!$found) {
                 throw new Exception('The translations for the provided language do not exist: ' . $language);
             }
 
@@ -59,9 +55,7 @@ class Localization extends EA_Controller {
             $this->config->set_item('language', $language);
 
             $response = AJAX_SUCCESS;
-        }
-        catch (Exception $exception)
-        {
+        } catch (Exception $exception) {
             $this->output->set_status_header(500);
 
             $response = [

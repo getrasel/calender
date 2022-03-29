@@ -1,851 +1,851 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
     version: 1.0.0
-    title: 'easyappointments-api'
-host: demo.easyappointments.org
+    title: "easyappointments-api"
+host: demo.calendars.davehansen.com
 basePath: /index.php/api/v1/
 tags:
-    -   name: admins
-    -   name: providers
-    -   name: secretaries
-    -   name: customers
-    -   name: availabilities
-    -   name: unavailabilities
-    -   name: appointments
-    -   name: services
-    -   name: categories
-    -   name: settings
+    - name: admins
+    - name: providers
+    - name: secretaries
+    - name: customers
+    - name: availabilities
+    - name: unavailabilities
+    - name: appointments
+    - name: services
+    - name: categories
+    - name: settings
 schemes:
     - https
     - http
 securityDefinitions:
     ApiKeyAuth:
-        description: "A bearer token is required when accessing or editing administrative data. The value is required to have the following format \"Bearer ##############\""
+        description: 'A bearer token is required when accessing or editing administrative data. The value is required to have the following format "Bearer ##############"'
         type: apiKey
         in: header
         name: Authorization
 paths:
     # AVAILABILITY
 
-    '/availabilities':
+    "/availabilities":
         get:
             tags:
                 - availabilities
             summary: Gets availability
             parameters:
-                -   name: providerId
-                    in: query
-                    type: integer
-                -   name: serviceId
-                    in: query
-                    type: integer
-                -   name: date
-                    in: query
-                    type: string
+                - name: providerId
+                  in: query
+                  type: integer
+                - name: serviceId
+                  in: query
+                  type: integer
+                - name: date
+                  in: query
+                  type: string
             responses:
-                '200':
+                "200":
                     description: success
                     schema:
-                        $ref: '#/definitions/Availabilities'
+                        $ref: "#/definitions/Availabilities"
 
     # APPOINTMENTS
 
-    '/appointments':
+    "/appointments":
         get:
             tags:
                 - appointments
             summary: Get all appointments
             parameters:
-                -   name: page
-                    in: query
-                    type: integer
-                -   name: length
-                    in: query
-                    type: integer
-                -   name: sort
-                    in: query
-                    type: string
-                -   name: q
-                    in: query
-                    type: string
-                -   name: aggregates
-                    in: query
-                    type: string
+                - name: page
+                  in: query
+                  type: integer
+                - name: length
+                  in: query
+                  type: integer
+                - name: sort
+                  in: query
+                  type: string
+                - name: q
+                  in: query
+                  type: string
+                - name: aggregates
+                  in: query
+                  type: string
             responses:
-                '200':
+                "200":
                     description: success
                     schema:
                         items:
-                            $ref: '#/definitions/Appointment'
+                            $ref: "#/definitions/Appointment"
         post:
             tags:
                 - appointments
             summary: Create single appointment
             parameters:
-                -   name: body
-                    in: body
-                    schema:
-                        $ref: '#/definitions/Appointment'
+                - name: body
+                  in: body
+                  schema:
+                      $ref: "#/definitions/Appointment"
             responses:
-                '201':
+                "201":
                     description: success
                     schema:
-                        $ref: '#/definitions/Appointment'
-    '/appointments/{appointmentId}':
+                        $ref: "#/definitions/Appointment"
+    "/appointments/{appointmentId}":
         get:
             tags:
                 - appointments
             summary: Get single appointment
             parameters:
-                -   name: appointmentId
-                    in: path
-                    type: integer
-                    required: true
+                - name: appointmentId
+                  in: path
+                  type: integer
+                  required: true
             responses:
-                '200':
+                "200":
                     description: success
                     schema:
-                        $ref: '#/definitions/Appointment'
+                        $ref: "#/definitions/Appointment"
         put:
             tags:
                 - appointments
             summary: Update single appointment
             parameters:
-                -   name: appointmentId
-                    in: path
-                    type: integer
-                    required: true
-                -   name: body
-                    in: body
-                    schema:
-                        $ref: '#/definitions/Appointment'
+                - name: appointmentId
+                  in: path
+                  type: integer
+                  required: true
+                - name: body
+                  in: body
+                  schema:
+                      $ref: "#/definitions/Appointment"
             responses:
-                '200':
+                "200":
                     description: successful operation
                     schema:
-                        $ref: '#/definitions/Appointment'
+                        $ref: "#/definitions/Appointment"
         delete:
             tags:
                 - appointments
             summary: Delete single appointment
             parameters:
-                -   name: appointmentId
-                    in: path
-                    type: integer
-                    required: true
+                - name: appointmentId
+                  in: path
+                  type: integer
+                  required: true
             responses:
-                '204':
+                "204":
                     description: success
                     schema:
-                        $ref: '#/definitions/Appointment'
-                '404':
+                        $ref: "#/definitions/Appointment"
+                "404":
                     description: not found
 
     # UNAVAILABILITY
 
-    '/unavailabilities':
+    "/unavailabilities":
         get:
             tags:
                 - unavailabilities
             summary: Get all unavailabilities
             parameters:
-                -   name: page
-                    in: query
-                    type: integer
-                -   name: length
-                    in: query
-                    type: integer
-                -   name: sort
-                    in: query
-                    type: string
-                -   name: q
-                    in: query
-                    type: string
+                - name: page
+                  in: query
+                  type: integer
+                - name: length
+                  in: query
+                  type: integer
+                - name: sort
+                  in: query
+                  type: string
+                - name: q
+                  in: query
+                  type: string
             responses:
-                '200':
+                "200":
                     description: success
                     schema:
                         items:
-                            $ref: '#/definitions/Unavailability'
+                            $ref: "#/definitions/Unavailability"
         post:
             tags:
                 - unavailabilities
             summary: Create single unavailability
             parameters:
-                -   name: body
-                    in: body
-                    schema:
-                        $ref: '#/definitions/Unavailability'
+                - name: body
+                  in: body
+                  schema:
+                      $ref: "#/definitions/Unavailability"
             responses:
-                '201':
+                "201":
                     description: success
                     schema:
-                        $ref: '#/definitions/Unavailability'
-    '/unavailabilities/{unavailabilityId}':
+                        $ref: "#/definitions/Unavailability"
+    "/unavailabilities/{unavailabilityId}":
         get:
             tags:
                 - unavailabilities
             summary: Get single unavailability
             parameters:
-                -   name: unavailabilityId
-                    in: path
-                    type: integer
-                    required: true
+                - name: unavailabilityId
+                  in: path
+                  type: integer
+                  required: true
             responses:
-                '200':
+                "200":
                     description: success
                     schema:
-                        $ref: '#/definitions/Unavailability'
+                        $ref: "#/definitions/Unavailability"
         put:
             tags:
                 - unavailabilities
             summary: Update single unavailability
             parameters:
-                -   name: unavailabilityId
-                    in: path
-                    type: integer
-                    required: true
-                -   name: body
-                    in: body
-                    schema:
-                        $ref: '#/definitions/Unavailability'
+                - name: unavailabilityId
+                  in: path
+                  type: integer
+                  required: true
+                - name: body
+                  in: body
+                  schema:
+                      $ref: "#/definitions/Unavailability"
             responses:
-                '200':
+                "200":
                     description: successful operation
                     schema:
-                        $ref: '#/definitions/Unavailability'
+                        $ref: "#/definitions/Unavailability"
         delete:
             tags:
                 - unavailabilities
             summary: Delete single unavailability
             parameters:
-                -   name: unavailabilityId
-                    in: path
-                    type: integer
-                    required: true
+                - name: unavailabilityId
+                  in: path
+                  type: integer
+                  required: true
             responses:
-                '204':
+                "204":
                     description: success
                     schema:
-                        $ref: '#/definitions/Unavailability'
-                '404':
+                        $ref: "#/definitions/Unavailability"
+                "404":
                     description: not found
 
     # CUSTOMERS
 
-    '/customers':
+    "/customers":
         get:
             tags:
                 - customers
             summary: Get all customers
             parameters:
-                -   name: page
-                    in: query
-                    type: integer
-                -   name: length
-                    in: query
-                    type: integer
-                -   name: sort
-                    in: query
-                    type: string
-                -   name: q
-                    in: query
-                    type: string
+                - name: page
+                  in: query
+                  type: integer
+                - name: length
+                  in: query
+                  type: integer
+                - name: sort
+                  in: query
+                  type: string
+                - name: q
+                  in: query
+                  type: string
             responses:
-                '200':
+                "200":
                     description: success
                     schema:
                         items:
-                            $ref: '#/definitions/Customer'
+                            $ref: "#/definitions/Customer"
         post:
             tags:
                 - customers
             summary: Create single customer
             parameters:
-                -   name: body
-                    in: body
-                    schema:
-                        $ref: '#/definitions/Customer'
+                - name: body
+                  in: body
+                  schema:
+                      $ref: "#/definitions/Customer"
             responses:
-                '201':
+                "201":
                     description: success
                     schema:
-                        $ref: '#/definitions/Customer'
-    '/customers/{customerId}':
+                        $ref: "#/definitions/Customer"
+    "/customers/{customerId}":
         get:
             tags:
                 - customers
             summary: Get single customer
             parameters:
-                -   name: customerId
-                    in: path
-                    type: integer
-                    required: true
+                - name: customerId
+                  in: path
+                  type: integer
+                  required: true
             responses:
-                '200':
+                "200":
                     description: success
                     schema:
-                        $ref: '#/definitions/Customer'
+                        $ref: "#/definitions/Customer"
         put:
             tags:
                 - customers
             summary: Update single customer
             parameters:
-                -   name: customerId
-                    in: path
-                    type: integer
-                    required: true
-                -   name: body
-                    in: body
-                    schema:
-                        $ref: '#/definitions/Customer'
+                - name: customerId
+                  in: path
+                  type: integer
+                  required: true
+                - name: body
+                  in: body
+                  schema:
+                      $ref: "#/definitions/Customer"
             responses:
-                '200':
+                "200":
                     description: successful operation
                     schema:
-                        $ref: '#/definitions/Customer'
+                        $ref: "#/definitions/Customer"
         delete:
             tags:
                 - customers
             summary: Delete single customer
             parameters:
-                -   name: customerId
-                    in: path
-                    type: integer
-                    required: true
+                - name: customerId
+                  in: path
+                  type: integer
+                  required: true
             responses:
-                '204':
+                "204":
                     description: success
                     schema:
-                        $ref: '#/definitions/Customer'
-                '404':
+                        $ref: "#/definitions/Customer"
+                "404":
                     description: not found
 
     # SERVICES
 
-    '/services':
+    "/services":
         get:
             tags:
                 - services
             summary: Get all services
             parameters:
-                -   name: page
-                    in: query
-                    type: integer
-                -   name: length
-                    in: query
-                    type: integer
-                -   name: sort
-                    in: query
-                    type: string
-                -   name: q
-                    in: query
-                    type: string
+                - name: page
+                  in: query
+                  type: integer
+                - name: length
+                  in: query
+                  type: integer
+                - name: sort
+                  in: query
+                  type: string
+                - name: q
+                  in: query
+                  type: string
             responses:
-                '200':
+                "200":
                     description: success
                     schema:
                         items:
-                            $ref: '#/definitions/Service'
+                            $ref: "#/definitions/Service"
         post:
             tags:
                 - services
             summary: Create single service
             parameters:
-                -   name: body
-                    in: body
-                    schema:
-                        $ref: '#/definitions/Service'
+                - name: body
+                  in: body
+                  schema:
+                      $ref: "#/definitions/Service"
             responses:
-                '201':
+                "201":
                     description: success
                     schema:
-                        $ref: '#/definitions/Service'
-    '/services/{serviceId}':
+                        $ref: "#/definitions/Service"
+    "/services/{serviceId}":
         get:
             tags:
                 - services
             summary: Get single service
             parameters:
-                -   name: serviceId
-                    in: path
-                    type: integer
-                    required: true
+                - name: serviceId
+                  in: path
+                  type: integer
+                  required: true
             responses:
-                '200':
+                "200":
                     description: success
                     schema:
-                        $ref: '#/definitions/Service'
+                        $ref: "#/definitions/Service"
         put:
             tags:
                 - services
             summary: Update single service
             parameters:
-                -   name: serviceId
-                    in: path
-                    type: integer
-                    required: true
-                -   name: body
-                    in: body
-                    schema:
-                        $ref: '#/definitions/Service'
+                - name: serviceId
+                  in: path
+                  type: integer
+                  required: true
+                - name: body
+                  in: body
+                  schema:
+                      $ref: "#/definitions/Service"
             responses:
-                '200':
+                "200":
                     description: successful operation
                     schema:
-                        $ref: '#/definitions/Service'
+                        $ref: "#/definitions/Service"
         delete:
             tags:
                 - services
             summary: Delete single service
             parameters:
-                -   name: serviceId
-                    in: path
-                    type: integer
-                    required: true
+                - name: serviceId
+                  in: path
+                  type: integer
+                  required: true
             responses:
-                '204':
+                "204":
                     description: success
                     schema:
-                        $ref: '#/definitions/Service'
-                '404':
+                        $ref: "#/definitions/Service"
+                "404":
                     description: not found
 
     # CATEGORIES
 
-    '/categories':
+    "/categories":
         get:
             tags:
                 - categories
             summary: Get all categories
             parameters:
-                -   name: page
-                    in: query
-                    type: integer
-                -   name: length
-                    in: query
-                    type: integer
-                -   name: sort
-                    in: query
-                    type: string
-                -   name: q
-                    in: query
-                    type: string
+                - name: page
+                  in: query
+                  type: integer
+                - name: length
+                  in: query
+                  type: integer
+                - name: sort
+                  in: query
+                  type: string
+                - name: q
+                  in: query
+                  type: string
             responses:
-                '200':
+                "200":
                     description: success
                     schema:
                         items:
-                            $ref: '#/definitions/Category'
+                            $ref: "#/definitions/Category"
         post:
             tags:
                 - categories
             summary: Create single category
             parameters:
-                -   name: body
-                    in: body
-                    schema:
-                        $ref: '#/definitions/Category'
+                - name: body
+                  in: body
+                  schema:
+                      $ref: "#/definitions/Category"
             responses:
-                '201':
+                "201":
                     description: success
                     schema:
-                        $ref: '#/definitions/Category'
-    '/categories/{categoryId}':
+                        $ref: "#/definitions/Category"
+    "/categories/{categoryId}":
         get:
             tags:
                 - categories
             summary: Get single category
             parameters:
-                -   name: categoryId
-                    in: path
-                    type: integer
-                    required: true
+                - name: categoryId
+                  in: path
+                  type: integer
+                  required: true
             responses:
-                '200':
+                "200":
                     description: success
                     schema:
-                        $ref: '#/definitions/Category'
+                        $ref: "#/definitions/Category"
         put:
             tags:
                 - categories
             summary: Update single category
             parameters:
-                -   name: categoryId
-                    in: path
-                    type: integer
-                    required: true
-                -   name: body
-                    in: body
-                    schema:
-                        $ref: '#/definitions/Category'
+                - name: categoryId
+                  in: path
+                  type: integer
+                  required: true
+                - name: body
+                  in: body
+                  schema:
+                      $ref: "#/definitions/Category"
             responses:
-                '200':
+                "200":
                     description: successful operation
                     schema:
-                        $ref: '#/definitions/Category'
+                        $ref: "#/definitions/Category"
         delete:
             tags:
                 - categories
             summary: Delete single category
             parameters:
-                -   name: categoryId
-                    in: path
-                    type: integer
-                    required: true
+                - name: categoryId
+                  in: path
+                  type: integer
+                  required: true
             responses:
-                '204':
+                "204":
                     description: success
                     schema:
-                        $ref: '#/definitions/Category'
-                '404':
+                        $ref: "#/definitions/Category"
+                "404":
                     description: not found
 
     # ADMINS
 
-    '/admins':
+    "/admins":
         get:
             tags:
                 - admins
             summary: Get all admins
             parameters:
-                -   name: page
-                    in: query
-                    type: integer
-                -   name: length
-                    in: query
-                    type: integer
-                -   name: sort
-                    in: query
-                    type: string
-                -   name: q
-                    in: query
-                    type: string
+                - name: page
+                  in: query
+                  type: integer
+                - name: length
+                  in: query
+                  type: integer
+                - name: sort
+                  in: query
+                  type: string
+                - name: q
+                  in: query
+                  type: string
             responses:
-                '200':
+                "200":
                     description: success
                     schema:
                         items:
-                            $ref: '#/definitions/Admin'
+                            $ref: "#/definitions/Admin"
         post:
             tags:
                 - admins
             summary: Create single admin
             parameters:
-                -   name: body
-                    in: body
-                    schema:
-                        items:
-                            $ref: '#/definitions/Admin'
+                - name: body
+                  in: body
+                  schema:
+                      items:
+                          $ref: "#/definitions/Admin"
             responses:
-                '201':
+                "201":
                     description: success
                     schema:
-                        $ref: '#/definitions/Admin'
-    '/admins/{adminId}':
+                        $ref: "#/definitions/Admin"
+    "/admins/{adminId}":
         get:
             tags:
                 - admins
             summary: Get single admin
             parameters:
-                -   name: adminId
-                    in: path
-                    type: integer
-                    required: true
+                - name: adminId
+                  in: path
+                  type: integer
+                  required: true
             responses:
-                '200':
+                "200":
                     description: success
                     schema:
-                        $ref: '#/definitions/Admin'
+                        $ref: "#/definitions/Admin"
         put:
             tags:
                 - admins
             summary: Update single admin
             parameters:
-                -   name: adminId
-                    in: path
-                    type: integer
-                    required: true
-                -   name: body
-                    in: body
-                    schema:
-                        $ref: '#/definitions/Admin'
+                - name: adminId
+                  in: path
+                  type: integer
+                  required: true
+                - name: body
+                  in: body
+                  schema:
+                      $ref: "#/definitions/Admin"
             responses:
-                '200':
+                "200":
                     description: successful operation
                     schema:
-                        $ref: '#/definitions/Admin'
+                        $ref: "#/definitions/Admin"
         delete:
             tags:
                 - admins
             summary: Delete single admin
             parameters:
-                -   name: adminId
-                    in: path
-                    type: integer
-                    required: true
+                - name: adminId
+                  in: path
+                  type: integer
+                  required: true
             responses:
-                '204':
+                "204":
                     description: success
                     schema:
-                        $ref: '#/definitions/Admin'
-                '404':
+                        $ref: "#/definitions/Admin"
+                "404":
                     description: not found
 
     # PROVIDERS
 
-    '/providers':
+    "/providers":
         get:
             tags:
                 - providers
             summary: Get all providers
             parameters:
-                -   name: page
-                    in: query
-                    type: integer
-                -   name: length
-                    in: query
-                    type: integer
-                -   name: sort
-                    in: query
-                    type: string
-                -   name: q
-                    in: query
-                    type: string
+                - name: page
+                  in: query
+                  type: integer
+                - name: length
+                  in: query
+                  type: integer
+                - name: sort
+                  in: query
+                  type: string
+                - name: q
+                  in: query
+                  type: string
             responses:
-                '200':
+                "200":
                     description: success
                     schema:
                         items:
-                            $ref: '#/definitions/Provider'
+                            $ref: "#/definitions/Provider"
         post:
             tags:
                 - providers
             summary: Create single provider
             parameters:
-                -   name: body
-                    in: body
-                    schema:
-                        $ref: '#/definitions/Provider'
+                - name: body
+                  in: body
+                  schema:
+                      $ref: "#/definitions/Provider"
             responses:
-                '201':
+                "201":
                     description: success
                     schema:
-                        $ref: '#/definitions/Provider'
-    '/providers/{providerId}':
+                        $ref: "#/definitions/Provider"
+    "/providers/{providerId}":
         get:
             tags:
                 - providers
             summary: Get single provider
             parameters:
-                -   name: providerId
-                    in: path
-                    type: integer
-                    required: true
+                - name: providerId
+                  in: path
+                  type: integer
+                  required: true
             responses:
-                '200':
+                "200":
                     description: success
                     schema:
-                        $ref: '#/definitions/Provider'
+                        $ref: "#/definitions/Provider"
         put:
             tags:
                 - providers
             summary: Update single provider
             parameters:
-                -   name: providerId
-                    in: path
-                    type: integer
-                    required: true
-                -   name: body
-                    in: body
-                    schema:
-                        $ref: '#/definitions/Provider'
+                - name: providerId
+                  in: path
+                  type: integer
+                  required: true
+                - name: body
+                  in: body
+                  schema:
+                      $ref: "#/definitions/Provider"
             responses:
-                '200':
+                "200":
                     description: successful operation
                     schema:
-                        $ref: '#/definitions/Provider'
+                        $ref: "#/definitions/Provider"
         delete:
             tags:
                 - providers
             summary: Delete single provider
             parameters:
-                -   name: providerId
-                    in: path
-                    type: integer
-                    required: true
+                - name: providerId
+                  in: path
+                  type: integer
+                  required: true
             responses:
-                '204':
+                "204":
                     description: success
                     schema:
-                        $ref: '#/definitions/Provider'
-                '404':
+                        $ref: "#/definitions/Provider"
+                "404":
                     description: not found
 
     # SECRETARIES
 
-    '/secretaries':
+    "/secretaries":
         get:
             tags:
                 - secretaries
             summary: Get all secretaries
             parameters:
-                -   name: page
-                    in: query
-                    type: integer
-                -   name: length
-                    in: query
-                    type: integer
-                -   name: sort
-                    in: query
-                    type: string
-                -   name: q
-                    in: query
-                    type: string
+                - name: page
+                  in: query
+                  type: integer
+                - name: length
+                  in: query
+                  type: integer
+                - name: sort
+                  in: query
+                  type: string
+                - name: q
+                  in: query
+                  type: string
             responses:
-                '200':
+                "200":
                     description: success
                     schema:
                         items:
-                            $ref: '#/definitions/Secretary'
+                            $ref: "#/definitions/Secretary"
         post:
             tags:
                 - secretaries
             summary: Create single secretary
             parameters:
-                -   name: body
-                    in: body
-                    schema:
-                        $ref: '#/definitions/Secretary'
+                - name: body
+                  in: body
+                  schema:
+                      $ref: "#/definitions/Secretary"
             responses:
-                '201':
+                "201":
                     description: success
                     schema:
-                        $ref: '#/definitions/Secretary'
-    '/secretaries/{secretaryId}':
+                        $ref: "#/definitions/Secretary"
+    "/secretaries/{secretaryId}":
         get:
             tags:
                 - secretaries
             summary: Get single secretary
             parameters:
-                -   name: secretaryId
-                    in: path
-                    type: integer
-                    required: true
+                - name: secretaryId
+                  in: path
+                  type: integer
+                  required: true
             responses:
-                '200':
+                "200":
                     description: success
                     schema:
-                        $ref: '#/definitions/Secretary'
+                        $ref: "#/definitions/Secretary"
         put:
             tags:
                 - secretaries
             summary: Update single secretary
             parameters:
-                -   name: secretaryId
-                    in: path
-                    type: integer
-                    required: true
-                -   name: body
-                    in: body
-                    schema:
-                        $ref: '#/definitions/Secretary'
+                - name: secretaryId
+                  in: path
+                  type: integer
+                  required: true
+                - name: body
+                  in: body
+                  schema:
+                      $ref: "#/definitions/Secretary"
             responses:
-                '200':
+                "200":
                     description: successful operation
                     schema:
-                        $ref: '#/definitions/Secretary'
+                        $ref: "#/definitions/Secretary"
         delete:
             tags:
                 - secretaries
             summary: Delete single secretary
             parameters:
-                -   name: secretaryId
-                    in: path
-                    type: integer
-                    required: true
+                - name: secretaryId
+                  in: path
+                  type: integer
+                  required: true
             responses:
-                '204':
+                "204":
                     description: success
                     schema:
-                        $ref: '#/definitions/Secretary'
-                '404':
+                        $ref: "#/definitions/Secretary"
+                "404":
                     description: not found
 
     # SETTINGS
 
-    '/settings':
+    "/settings":
         get:
             tags:
                 - settings
             summary: Get all settings
             parameters:
-                -   name: page
-                    in: query
-                    type: integer
-                -   name: length
-                    in: query
-                    type: integer
-                -   name: sort
-                    in: query
-                    type: string
-                -   name: q
-                    in: query
-                    type: string
+                - name: page
+                  in: query
+                  type: integer
+                - name: length
+                  in: query
+                  type: integer
+                - name: sort
+                  in: query
+                  type: string
+                - name: q
+                  in: query
+                  type: string
             responses:
-                '200':
+                "200":
                     description: success
                     schema:
                         items:
-                            $ref: '#/definitions/Setting'
-    '/settings/{settingName}':
+                            $ref: "#/definitions/Setting"
+    "/settings/{settingName}":
         get:
             tags:
                 - settings
             summary: Get single setting
             parameters:
-                -   name: settingName
-                    in: path
-                    type: string
-                    required: true
+                - name: settingName
+                  in: path
+                  type: string
+                  required: true
             responses:
-                '200':
+                "200":
                     description: success
                     schema:
-                        $ref: '#/definitions/Setting'
+                        $ref: "#/definitions/Setting"
         put:
             tags:
                 - settings
             summary: Update single setting
             parameters:
-                -   name: settingName
-                    in: path
-                    type: integer
-                    required: true
-                -   name: body
-                    in: body
-                    schema:
-                        $ref: '#/definitions/Setting'
+                - name: settingName
+                  in: path
+                  type: integer
+                  required: true
+                - name: body
+                  in: body
+                  schema:
+                      $ref: "#/definitions/Setting"
             responses:
-                '200':
+                "200":
                     description: successful operation
                     schema:
-                        $ref: '#/definitions/Setting'
+                        $ref: "#/definitions/Setting"
         delete:
             tags:
                 - settings
             summary: Delete single setting
             parameters:
-                -   name: settingName
-                    in: path
-                    type: integer
-                    required: true
+                - name: settingName
+                  in: path
+                  type: integer
+                  required: true
             responses:
-                '204':
+                "204":
                     description: success
                     schema:
-                        $ref: '#/definitions/Setting'
-                '404':
+                        $ref: "#/definitions/Setting"
+                "404":
                     description: not found
 
 # DEFINITIONS
@@ -1095,4 +1095,4 @@ definitions:
 
 externalDocs:
     description: Find out more about Easy!Appointments
-    url: 'https://easyappointments.org/docs.html'
+    url: "https://calendars.davehansen.com/docs.html"

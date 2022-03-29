@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.2.0
  * ---------------------------------------------------------------------------- */
 
@@ -25,7 +25,8 @@ namespace EA\Engine\Api\V1\Processors;
  *
  * @deprecated
  */
-class Minimize implements ProcessorsInterface {
+class Minimize implements ProcessorsInterface
+{
     /**
      * Process Response Array
      *
@@ -37,8 +38,7 @@ class Minimize implements ProcessorsInterface {
      */
     public static function process(array &$response)
     {
-        if ( ! isset($_GET['fields']) || empty($response))
-        {
+        if (!isset($_GET['fields']) || empty($response)) {
             return;
         }
 
@@ -46,15 +46,12 @@ class Minimize implements ProcessorsInterface {
 
         $temporary_response = [];
 
-        foreach ($response as &$entry)
-        {
+        foreach ($response as &$entry) {
             $temporary_entry = [];
 
-            foreach ($fields as $field)
-            {
+            foreach ($fields as $field) {
                 $field = trim($field);
-                if (isset($entry[$field]))
-                {
+                if (isset($entry[$field])) {
                     $temporary_entry[$field] = $entry[$field];
                 }
             }

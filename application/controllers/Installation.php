@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     https://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        https://easyappointments.org
+ * @link        https://calendars.davehansen.com
  * @since       v1.1.0
  * ---------------------------------------------------------------------------- */
 
@@ -18,7 +18,8 @@
  *
  * @package Controllers
  */
-class Installation extends EA_Controller {
+class Installation extends EA_Controller
+{
     /**
      * Installation constructor.
      */
@@ -40,8 +41,7 @@ class Installation extends EA_Controller {
      */
     public function index()
     {
-        if (is_app_installed())
-        {
+        if (is_app_installed()) {
             redirect('appointments');
             return;
         }
@@ -56,18 +56,15 @@ class Installation extends EA_Controller {
      */
     public function ajax_install()
     {
-        try
-        {
-            if (is_app_installed())
-            {
+        try {
+            if (is_app_installed()) {
                 return;
             }
 
             $admin = $this->input->post('admin');
             $company = $this->input->post('company');
 
-            if ( ! $this->migration->latest())
-            {
+            if (!$this->migration->latest()) {
                 throw new Exception($this->migration->error_string());
             }
 
@@ -131,9 +128,7 @@ class Installation extends EA_Controller {
             ]);
 
             $response = AJAX_SUCCESS;
-        }
-        catch (Exception $exception)
-        {
+        } catch (Exception $exception) {
             $this->output->set_status_header(500);
 
             $response = [

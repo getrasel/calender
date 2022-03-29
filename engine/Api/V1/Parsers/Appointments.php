@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.2.0
  * ---------------------------------------------------------------------------- */
 
@@ -20,7 +20,8 @@ namespace EA\Engine\Api\V1\Parsers;
  *
  * @deprecated
  */
-class Appointments implements ParsersInterface {
+class Appointments implements ParsersInterface
+{
     /**
      * Encode Response Array
      *
@@ -42,22 +43,19 @@ class Appointments implements ParsersInterface {
             'googleCalendarId' => $response['id_google_calendar'] !== NULL ? (int)$response['id_google_calendar'] : NULL
         ];
 
-        if (isset($response['provider']))
-        {
+        if (isset($response['provider'])) {
             $provider_parser = new Providers();
             $provider_parser->encode($response['provider']);
             $encoded_response['provider'] = $response['provider'];
         }
 
-        if (isset($response['customer']))
-        {
+        if (isset($response['customer'])) {
             $customer_parser = new Customers();
             $customer_parser->encode($response['customer']);
             $encoded_response['customer'] = $response['customer'];
         }
 
-        if (isset($response['service']))
-        {
+        if (isset($response['service'])) {
             $service_parser = new Services();
             $service_parser->encode($response['service']);
             $encoded_response['service'] = $response['service'];
@@ -76,58 +74,47 @@ class Appointments implements ParsersInterface {
     {
         $decoded_request = $base ?: [];
 
-        if (array_key_exists('id', $request))
-        {
+        if (array_key_exists('id', $request)) {
             $decoded_request['id'] = $request['id'];
         }
 
-        if (array_key_exists('book', $request))
-        {
+        if (array_key_exists('book', $request)) {
             $decoded_request['book_datetime'] = $request['book'];
         }
 
-        if (array_key_exists('start', $request))
-        {
+        if (array_key_exists('start', $request)) {
             $decoded_request['start_datetime'] = $request['start'];
         }
 
-        if (array_key_exists('end', $request))
-        {
+        if (array_key_exists('end', $request)) {
             $decoded_request['end_datetime'] = $request['end'];
         }
 
-        if (array_key_exists('hash', $request))
-        {
+        if (array_key_exists('hash', $request)) {
             $decoded_request['hash'] = $request['hash'];
         }
 
-        if (array_key_exists('location', $request))
-        {
+        if (array_key_exists('location', $request)) {
             $decoded_request['location'] = $request['location'];
         }
 
-        if (array_key_exists('notes', $request))
-        {
+        if (array_key_exists('notes', $request)) {
             $decoded_request['notes'] = $request['notes'];
         }
 
-        if (array_key_exists('customerId', $request))
-        {
+        if (array_key_exists('customerId', $request)) {
             $decoded_request['id_users_customer'] = $request['customerId'];
         }
 
-        if (array_key_exists('providerId', $request))
-        {
+        if (array_key_exists('providerId', $request)) {
             $decoded_request['id_users_provider'] = $request['providerId'];
         }
 
-        if (array_key_exists('serviceId', $request))
-        {
+        if (array_key_exists('serviceId', $request)) {
             $decoded_request['id_services'] = $request['serviceId'];
         }
 
-        if (array_key_exists('googleCalendarId', $request))
-        {
+        if (array_key_exists('googleCalendarId', $request)) {
             $decoded_request['id_google_calendar'] = $request['googleCalendarId'];
         }
 

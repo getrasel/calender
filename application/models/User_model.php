@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.0.0
  * ---------------------------------------------------------------------------- */
 
@@ -18,7 +18,8 @@
  *
  * @package Models
  */
-class User_model extends EA_Model {
+class User_model extends EA_Model
+{
     /**
      * User_Model constructor.
      */
@@ -59,19 +60,16 @@ class User_model extends EA_Model {
         unset($user['settings']);
 
         // Prepare user password (hash).
-        if (isset($user_settings['password']))
-        {
+        if (isset($user_settings['password'])) {
             $salt = $this->db->get_where('user_settings', ['id_users' => $user['id']])->row()->salt;
             $user_settings['password'] = hash_password($salt, $user_settings['password']);
         }
 
-        if ( ! $this->db->update('users', $user, ['id' => $user['id']]))
-        {
+        if (!$this->db->update('users', $user, ['id' => $user['id']])) {
             return FALSE;
         }
 
-        if ( ! $this->db->update('user_settings', $user_settings, ['id_users' => $user['id']]))
-        {
+        if (!$this->db->update('user_settings', $user_settings, ['id_users' => $user['id']])) {
             return FALSE;
         }
 
@@ -96,22 +94,19 @@ class User_model extends EA_Model {
             'password' => $password
         ])->row_array();
 
-        if (empty($user_settings))
-        {
+        if (empty($user_settings)) {
             return NULL;
         }
 
         $user = $this->db->get_where('users', ['id' => $user_settings['id_users']])->row_array();
 
-        if (empty($user))
-        {
+        if (empty($user)) {
             return NULL;
         }
 
         $role = $this->db->get_where('roles', ['id' => $user['id_roles']])->row_array();
 
-        if (empty($role))
-        {
+        if (empty($role)) {
             return NULL;
         }
 
@@ -150,9 +145,8 @@ class User_model extends EA_Model {
      */
     public function get_user_display_name($user_id)
     {
-        if ( ! is_numeric($user_id))
-        {
-            throw new Exception ('Invalid argument given: ' . $user_id);
+        if (!is_numeric($user_id)) {
+            throw new Exception('Invalid argument given: ' . $user_id);
         }
 
         $user = $this->db->get_where('users', ['id' => $user_id])->row_array();
@@ -179,8 +173,7 @@ class User_model extends EA_Model {
             ->where('user_settings.username', $username)
             ->get();
 
-        if ($result->num_rows() == 0)
-        {
+        if ($result->num_rows() == 0) {
             return FALSE;
         }
 

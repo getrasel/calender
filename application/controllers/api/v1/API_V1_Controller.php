@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     https://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        https://easyappointments.org
+ * @link        https://calendars.davehansen.com
  * @since       v1.2.0
  * ---------------------------------------------------------------------------- */
 
@@ -22,7 +22,8 @@ use EA\Engine\Types\NonEmptyText;
  *
  * @package Controllers
  */
-class API_V1_Controller extends EA_Controller {
+class API_V1_Controller extends EA_Controller
+{
     /**
      * Class Constructor
      *
@@ -35,8 +36,7 @@ class API_V1_Controller extends EA_Controller {
      */
     public function __construct()
     {
-        try
-        {
+        try {
             parent::__construct();
 
             $this->load->model('settings_model');
@@ -45,13 +45,11 @@ class API_V1_Controller extends EA_Controller {
 
             $authorization = new Authorization($this);
 
-            if ( ! empty($api_token) && $api_token === $this->get_bearer_token())
-            {
+            if (!empty($api_token) && $api_token === $this->get_bearer_token()) {
                 return;
             }
 
-            if ( ! isset($_SERVER['PHP_AUTH_USER']))
-            {
+            if (!isset($_SERVER['PHP_AUTH_USER'])) {
                 $this->request_authentication();
                 return;
             }
@@ -59,9 +57,7 @@ class API_V1_Controller extends EA_Controller {
             $username = new NonEmptyText($_SERVER['PHP_AUTH_USER']);
             $password = new NonEmptyText($_SERVER['PHP_AUTH_PW']);
             $authorization->basic($username, $password);
-        }
-        catch (Exception $exception)
-        {
+        } catch (Exception $exception) {
             $this->handle_exception($exception);
             exit;
         }
@@ -78,10 +74,8 @@ class API_V1_Controller extends EA_Controller {
 
         // HEADER: Get the access token from the header
 
-        if ( ! empty($headers))
-        {
-            if (preg_match('/Bearer\s(\S+)/', $headers, $matches))
-            {
+        if (!empty($headers)) {
+            if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
                 return $matches[1];
             }
         }
@@ -97,27 +91,20 @@ class API_V1_Controller extends EA_Controller {
     {
         $headers = NULL;
 
-        if (isset($_SERVER['Authorization']))
-        {
+        if (isset($_SERVER['Authorization'])) {
             $headers = trim($_SERVER['Authorization']);
-        }
-        else
-        {
-            if (isset($_SERVER['HTTP_AUTHORIZATION']))
-            {
+        } else {
+            if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
                 //Nginx or fast CGI
                 $headers = trim($_SERVER['HTTP_AUTHORIZATION']);
-            }
-            elseif (function_exists('apache_request_headers'))
-            {
+            } elseif (function_exists('apache_request_headers')) {
                 $requestHeaders = apache_request_headers();
 
                 // Server-side fix for bug in old Android versions (a nice side-effect of this fix means we don't care
                 // about capitalization for Authorization).
                 $requestHeaders = array_combine(array_map('ucwords', array_keys($requestHeaders)), array_values($requestHeaders));
 
-                if (isset($requestHeaders['Authorization']))
-                {
+                if (isset($requestHeaders['Authorization'])) {
                     $headers = trim($requestHeaders['Authorization']);
                 }
             }

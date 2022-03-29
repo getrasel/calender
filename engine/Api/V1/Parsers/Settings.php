@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.2.0
  * ---------------------------------------------------------------------------- */
 
@@ -20,7 +20,8 @@ namespace EA\Engine\Api\V1\Parsers;
  *
  * @deprecated
  */
-class Settings implements ParsersInterface {
+class Settings implements ParsersInterface
+{
     /**
      * Encode Response Array
      *
@@ -46,13 +47,11 @@ class Settings implements ParsersInterface {
     {
         $decoded_request = $base ?: [];
 
-        if (array_key_exists('name', $request))
-        {
+        if (array_key_exists('name', $request)) {
             $decoded_request['name'] = $request['name'];
         }
 
-        if (array_key_exists('value', $request))
-        {
+        if (array_key_exists('value', $request)) {
             $decoded_request['value'] = $request['value'];
         }
 

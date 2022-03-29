@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     https://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        https://easyappointments.org
+ * @link        https://calendars.davehansen.com
  * @since       v1.2.0
  * ---------------------------------------------------------------------------- */
 
@@ -21,7 +21,8 @@ use EA\Engine\Api\V1\Response;
  *
  * @package Controllers
  */
-class Settings extends API_V1_Controller {
+class Settings extends API_V1_Controller
+{
     /**
      * Settings Resource Parser
      *
@@ -46,25 +47,20 @@ class Settings extends API_V1_Controller {
      */
     public function get($name = NULL)
     {
-        try
-        {
+        try {
             $settings = $this->settings_model->get_settings();
 
-            if ($name !== NULL)
-            {
+            if ($name !== NULL) {
                 $setting = NULL;
 
-                foreach ($settings as $entry)
-                {
-                    if ($entry['name'] === $name)
-                    {
+                foreach ($settings as $entry) {
+                    if ($entry['name'] === $name) {
                         $setting = $entry;
                         break;
                     }
                 }
 
-                if (empty($setting))
-                {
+                if (empty($setting)) {
                     $this->throw_record_not_found();
                 }
 
@@ -84,10 +80,7 @@ class Settings extends API_V1_Controller {
                 ->minimize()
                 ->singleEntry($name)
                 ->output();
-
-        }
-        catch (Exception $exception)
-        {
+        } catch (Exception $exception) {
             $this->handle_exception($exception);
         }
     }
@@ -99,8 +92,7 @@ class Settings extends API_V1_Controller {
      */
     public function put($name)
     {
-        try
-        {
+        try {
             $request = new Request();
             $value = $request->get_body()['value'];
             $this->settings_model->set_setting($name, $value);
@@ -113,9 +105,7 @@ class Settings extends API_V1_Controller {
                 ]
             ]);
             $response->encode($this->parser)->singleEntry($name)->output();
-        }
-        catch (Exception $exception)
-        {
+        } catch (Exception $exception) {
             $this->handle_exception($exception);
         }
     }
@@ -127,8 +117,7 @@ class Settings extends API_V1_Controller {
      */
     public function delete($name)
     {
-        try
-        {
+        try {
             $this->settings_model->remove_setting($name);
 
             $response = new Response([
@@ -137,9 +126,7 @@ class Settings extends API_V1_Controller {
             ]);
 
             $response->output();
-        }
-        catch (Exception $exception)
-        {
+        } catch (Exception $exception) {
             $this->handle_exception($exception);
         }
     }

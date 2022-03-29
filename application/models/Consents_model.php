@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.3.2
  * ---------------------------------------------------------------------------- */
 
@@ -16,7 +16,8 @@
  *
  * @package Models
  */
-class Consents_model extends EA_Model {
+class Consents_model extends EA_Model
+{
     /**
      * Add a consent record to the database.
      *
@@ -32,12 +33,9 @@ class Consents_model extends EA_Model {
     {
         $this->validate($consent);
 
-        if ( ! isset($consent['id']))
-        {
+        if (!isset($consent['id'])) {
             $consent['id'] = $this->insert($consent);
-        }
-        else
-        {
+        } else {
             $this->update($consent);
         }
 
@@ -54,12 +52,13 @@ class Consents_model extends EA_Model {
      */
     public function validate($consent)
     {
-        if ( ! isset($consent['first_name'])
-            || ! isset($consent['last_name'])
-            || ! isset($consent['email'])
-            || ! isset($consent['ip'])
-            || ! isset($consent['type']))
-        {
+        if (
+            !isset($consent['first_name'])
+            || !isset($consent['last_name'])
+            || !isset($consent['email'])
+            || !isset($consent['ip'])
+            || !isset($consent['type'])
+        ) {
             throw new Exception('Not all required fields are provided: '
                 . print_r($consent, TRUE));
         }
@@ -79,8 +78,7 @@ class Consents_model extends EA_Model {
         $consent['created'] = date('Y-m-d H:i:s');
         $consent['modified'] = date('Y-m-d H:i:s');
 
-        if ( ! $this->db->insert('consents', $consent))
-        {
+        if (!$this->db->insert('consents', $consent)) {
             throw new Exception('Could not insert consent to the database.');
         }
 
@@ -102,8 +100,7 @@ class Consents_model extends EA_Model {
     {
         $consent['modified'] = date('Y-m-d H:i:s');
 
-        if ( ! $this->db->update('consents', $consent, ['id' => $consent['id']]))
-        {
+        if (!$this->db->update('consents', $consent, ['id' => $consent['id']])) {
             throw new Exception('Could not update consent to the database.');
         }
 

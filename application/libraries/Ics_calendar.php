@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.4.3
  * ---------------------------------------------------------------------------- */
 
@@ -25,7 +25,8 @@ use Jsvrcek\ICS\Utility\Provider;
  *
  * There is no other change to the original file.
  */
-class Ics_calendar extends Calendar {
+class Ics_calendar extends Calendar
+{
     /**
      * @var string
      */
@@ -247,26 +248,19 @@ class Ics_calendar extends Calendar {
     public function setImage($image)
     {
         // Do some validation on provided data.
-        if (array_key_exists('VALUE', $image) && in_array($image['VALUE'], ['URI', 'BINARY']))
-        {
-            if ($image['VALUE'] == 'URI' && $image['URI'])
-            {
+        if (array_key_exists('VALUE', $image) && in_array($image['VALUE'], ['URI', 'BINARY'])) {
+            if ($image['VALUE'] == 'URI' && $image['URI']) {
                 $new_image = [
                     'VALUE' => 'URI',
                     'URI' => $image['URI']
                 ];
-
-            }
-            elseif ($image['VALUE'] == 'BINARY' && $image['ENCODING'] && $image['BINARY'])
-            {
+            } elseif ($image['VALUE'] == 'BINARY' && $image['ENCODING'] && $image['BINARY']) {
                 $new_image = [
                     'VALUE' => 'BINARY',
                     'ENCODING' => $image['ENCODING'],
                     'BINARY' => $image['BINARY']
                 ];
-            }
-            else
-            {
+            } else {
                 return;
             }
             $new_image['DISPLAY'] = isset($image['DISPLAY']) ? $image['DISPLAY'] : '';

@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.2.0
  * ---------------------------------------------------------------------------- */
 
@@ -24,7 +24,8 @@ use EA_Controller;
  *
  * @deprecated
  */
-class Authorization {
+class Authorization
+{
     /**
      * Framework Instance
      *
@@ -54,8 +55,7 @@ class Authorization {
     {
         $this->CI->load->model('user_model');
 
-        if ( ! $this->CI->user_model->check_login($username->get(), $password->get()))
-        {
+        if (!$this->CI->user_model->check_login($username->get(), $password->get())) {
             throw new Exception('The provided credentials do not match any admin user!', 401, 'Unauthorized');
         }
     }

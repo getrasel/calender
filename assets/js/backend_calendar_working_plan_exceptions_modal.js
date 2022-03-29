@@ -5,7 +5,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.2.0
  * ---------------------------------------------------------------------------- */
 
@@ -16,11 +16,11 @@
  *
  * @module BackendCalendarWorkingPlanExceptionsModal
  */
-window.BackendCalendarWorkingPlanExceptionsModal = window.BackendCalendarWorkingPlanExceptionsModal || {};
+window.BackendCalendarWorkingPlanExceptionsModal =
+    window.BackendCalendarWorkingPlanExceptionsModal || {};
 
 (function (exports) {
-
-    'use strict';
+    "use strict";
 
     function bindEventHandlers() {
         /**
@@ -28,83 +28,125 @@ window.BackendCalendarWorkingPlanExceptionsModal = window.BackendCalendarWorking
          *
          * Stores the working plan exception changes or inserts a new record.
          */
-        $('#manage-working-plan-exceptions #save-working-plan-exception').on('click', function () {
-            $('#manage-working-plan-exceptions .modal-message').addClass('hidden');
+        $("#manage-working-plan-exceptions #save-working-plan-exception").on(
+            "click",
+            function () {
+                $("#manage-working-plan-exceptions .modal-message").addClass(
+                    "hidden"
+                );
 
-            $('#manage-working-plan-exceptions').find('.has-error').removeClass('has-error');
+                $("#manage-working-plan-exceptions")
+                    .find(".has-error")
+                    .removeClass("has-error");
 
-            var date = $('#working-plan-exception-date').datetimepicker('getDate');
+                var date = $("#working-plan-exception-date").datetimepicker(
+                    "getDate"
+                );
 
-            if (!date) {
-                $('#working-plan-exception-date').closest('.form-group').addClass('has-error');
-                return;
-            }
-
-            var start = $('#working-plan-exception-start').datetimepicker('getDate');
-
-            if (!start) {
-                $('#working-plan-exception-start').closest('.form-group').addClass('has-error');
-                return;
-            }
-
-            var end = Date.parse($('#working-plan-exception-end').datetimepicker('getDate'));
-
-            if (!end) {
-                $('#working-plan-exception-end').closest('.form-group').addClass('has-error');
-                return;
-            }
-
-            if (start > end) {
-                // Start time is after end time - display message to user.
-                $('#manage-working-plan-exceptions .modal-message')
-                    .text(EALang.start_date_before_end_error)
-                    .addClass('alert-danger')
-                    .removeClass('hidden');
-
-                $('#working-plan-exception-start').addClass('has-error');
-                $('#working-plan-exception-end').addClass('has-error');
-                return;
-            }
-
-            var workingPlanException = {
-                start: start.toString('HH:mm'),
-                end: end.toString('HH:mm'),
-                breaks: []
-            };
-
-            var successCallback = function () {
-                // Display success message to the user.
-                Backend.displayNotification(EALang.working_plan_exception_saved);
-
-                // Close the modal modal and update the local provider.
-                $('#manage-working-plan-exceptions .modal-message').addClass('hidden');
-                $('#manage-working-plan-exceptions').modal('hide');
-
-                var providerId = $('#working-plan-exception-provider').val();
-                var provider = GlobalVariables.availableProviders.find(function (availableProvider) {
-                    return Number(availableProvider.id) === Number(providerId);
-                });
-
-                if (!provider) {
-                    throw new Error('Provider could not be found: ' + providerId);
+                if (!date) {
+                    $("#working-plan-exception-date")
+                        .closest(".form-group")
+                        .addClass("has-error");
+                    return;
                 }
 
-                var selectedDate = date.toString('yyyy-MM-dd');
-                var workingPlanExceptions = JSON.parse(provider.settings.working_plan_exceptions);
+                var start = $("#working-plan-exception-start").datetimepicker(
+                    "getDate"
+                );
 
-                workingPlanExceptions[selectedDate] = {
-                    start: start.toString('HH:mm'),
-                    end: end.toString('HH:mm'),
+                if (!start) {
+                    $("#working-plan-exception-start")
+                        .closest(".form-group")
+                        .addClass("has-error");
+                    return;
+                }
+
+                var end = Date.parse(
+                    $("#working-plan-exception-end").datetimepicker("getDate")
+                );
+
+                if (!end) {
+                    $("#working-plan-exception-end")
+                        .closest(".form-group")
+                        .addClass("has-error");
+                    return;
+                }
+
+                if (start > end) {
+                    // Start time is after end time - display message to user.
+                    $("#manage-working-plan-exceptions .modal-message")
+                        .text(EALang.start_date_before_end_error)
+                        .addClass("alert-danger")
+                        .removeClass("hidden");
+
+                    $("#working-plan-exception-start").addClass("has-error");
+                    $("#working-plan-exception-end").addClass("has-error");
+                    return;
+                }
+
+                var workingPlanException = {
+                    start: start.toString("HH:mm"),
+                    end: end.toString("HH:mm"),
                     breaks: [],
                 };
 
-                provider.settings.working_plan_exceptions = JSON.stringify(workingPlanExceptions);
+                var successCallback = function () {
+                    // Display success message to the user.
+                    Backend.displayNotification(
+                        EALang.working_plan_exception_saved
+                    );
 
-                $('#select-filter-item').trigger('change'); // Update the calendar.
-            };
+                    // Close the modal modal and update the local provider.
+                    $(
+                        "#manage-working-plan-exceptions .modal-message"
+                    ).addClass("hidden");
+                    $("#manage-working-plan-exceptions").modal("hide");
 
-            BackendCalendarApi.saveWorkingPlanException(date, workingPlanException, provider.id, successCallback, null);
-        });
+                    var providerId = $(
+                        "#working-plan-exception-provider"
+                    ).val();
+                    var provider = GlobalVariables.availableProviders.find(
+                        function (availableProvider) {
+                            return (
+                                Number(availableProvider.id) ===
+                                Number(providerId)
+                            );
+                        }
+                    );
+
+                    if (!provider) {
+                        throw new Error(
+                            "Provider could not be found: " + providerId
+                        );
+                    }
+
+                    var selectedDate = date.toString("yyyy-MM-dd");
+                    var workingPlanExceptions = JSON.parse(
+                        provider.settings.working_plan_exceptions
+                    );
+
+                    workingPlanExceptions[selectedDate] = {
+                        start: start.toString("HH:mm"),
+                        end: end.toString("HH:mm"),
+                        breaks: [],
+                    };
+
+                    provider.settings.working_plan_exceptions = JSON.stringify(
+                        workingPlanExceptions
+                    );
+
+                    $("#select-filter-item").trigger("change"); // Update the calendar.
+                };
+
+                BackendCalendarApi.saveWorkingPlanException(
+                    date,
+                    workingPlanException,
+                    provider.id,
+                    successCallback,
+                    null
+                );
+            }
+        );
 
         /**
          * Event: Insert Custom Working Time Period Button "Click"
@@ -112,21 +154,34 @@ window.BackendCalendarWorkingPlanExceptionsModal = window.BackendCalendarWorking
          * When the user clicks this button a popup modal appears and the use can set a time period where he cannot
          * accept any appointments.
          */
-        $('#insert-working-plan-exception').on('click', function () {
+        $("#insert-working-plan-exception").on("click", function () {
             BackendCalendarWorkingPlanExceptionsModal.resetWorkingPlanExceptionModal();
 
-            if ($('.calendar-view').length === 0) {
-                $('#manage-working-plan-exceptions').find('#working-plan-exception-provider')
-                    .val($('#select-filter-item').val())
-                    .closest('.form-group')
+            if ($(".calendar-view").length === 0) {
+                $("#manage-working-plan-exceptions")
+                    .find("#working-plan-exception-provider")
+                    .val($("#select-filter-item").val())
+                    .closest(".form-group")
                     .hide();
             }
 
-            $('#working-plan-exception-date').val(GeneralFunctions.formatDate(new Date(), GlobalVariables.dateFormat, false));
-            $('#working-plan-exception-start').val(GlobalVariables.timeFormat === 'regular' ? '8:00 AM' : '08:00');
-            $('#working-plan-exception-end').val(GlobalVariables.timeFormat === 'regular' ? '8:00 PM' : '20:00');
-            $('#manage-working-plan-exceptions').find('.modal-header h3').text(EALang.new_working_plan_exception_title);
-            $('#manage-working-plan-exceptions').modal('show');
+            $("#working-plan-exception-date").val(
+                GeneralFunctions.formatDate(
+                    new Date(),
+                    GlobalVariables.dateFormat,
+                    false
+                )
+            );
+            $("#working-plan-exception-start").val(
+                GlobalVariables.timeFormat === "regular" ? "8:00 AM" : "08:00"
+            );
+            $("#working-plan-exception-end").val(
+                GlobalVariables.timeFormat === "regular" ? "8:00 PM" : "20:00"
+            );
+            $("#manage-working-plan-exceptions")
+                .find(".modal-header h3")
+                .text(EALang.new_working_plan_exception_title);
+            $("#manage-working-plan-exceptions").modal("show");
         });
     }
 
@@ -137,44 +192,76 @@ window.BackendCalendarWorkingPlanExceptionsModal = window.BackendCalendarWorking
      * before it becomes visible to the user.
      */
     exports.resetWorkingPlanExceptionModal = function () {
-        $('#manage-working-plan-exceptions').find('#working-plan-exception-id').val('');
+        $("#manage-working-plan-exceptions")
+            .find("#working-plan-exception-id")
+            .val("");
 
         // Set the default datetime values.
         var date = new Date();
-        var start = GlobalVariables.timeFormat === 'regular' ? '8:00 AM' : '08:00'
-        var end = GlobalVariables.timeFormat === 'regular' ? '8:00 PM' : '20:00'
+        var start =
+            GlobalVariables.timeFormat === "regular" ? "8:00 AM" : "08:00";
+        var end =
+            GlobalVariables.timeFormat === "regular" ? "8:00 PM" : "20:00";
 
         var dateFormat;
 
         switch (GlobalVariables.dateFormat) {
-            case 'DMY':
-                dateFormat = 'dd/mm/yy';
+            case "DMY":
+                dateFormat = "dd/mm/yy";
                 break;
-            case 'MDY':
-                dateFormat = 'mm/dd/yy';
+            case "MDY":
+                dateFormat = "mm/dd/yy";
                 break;
-            case 'YMD':
-                dateFormat = 'yy/mm/dd';
+            case "YMD":
+                dateFormat = "yy/mm/dd";
                 break;
         }
 
-        $('#working-plan-exception-date').datepicker({
+        $("#working-plan-exception-date").datepicker({
             dateFormat: dateFormat,
 
             // Translation
-            dayNames: [EALang.sunday, EALang.monday, EALang.tuesday, EALang.wednesday,
-                EALang.thursday, EALang.friday, EALang.saturday],
-            dayNamesShort: [EALang.sunday.substr(0, 3), EALang.monday.substr(0, 3),
-                EALang.tuesday.substr(0, 3), EALang.wednesday.substr(0, 3),
-                EALang.thursday.substr(0, 3), EALang.friday.substr(0, 3),
-                EALang.saturday.substr(0, 3)],
-            dayNamesMin: [EALang.sunday.substr(0, 2), EALang.monday.substr(0, 2),
-                EALang.tuesday.substr(0, 2), EALang.wednesday.substr(0, 2),
-                EALang.thursday.substr(0, 2), EALang.friday.substr(0, 2),
-                EALang.saturday.substr(0, 2)],
-            monthNames: [EALang.january, EALang.february, EALang.march, EALang.april,
-                EALang.may, EALang.june, EALang.july, EALang.august, EALang.september,
-                EALang.october, EALang.november, EALang.december],
+            dayNames: [
+                EALang.sunday,
+                EALang.monday,
+                EALang.tuesday,
+                EALang.wednesday,
+                EALang.thursday,
+                EALang.friday,
+                EALang.saturday,
+            ],
+            dayNamesShort: [
+                EALang.sunday.substr(0, 3),
+                EALang.monday.substr(0, 3),
+                EALang.tuesday.substr(0, 3),
+                EALang.wednesday.substr(0, 3),
+                EALang.thursday.substr(0, 3),
+                EALang.friday.substr(0, 3),
+                EALang.saturday.substr(0, 3),
+            ],
+            dayNamesMin: [
+                EALang.sunday.substr(0, 2),
+                EALang.monday.substr(0, 2),
+                EALang.tuesday.substr(0, 2),
+                EALang.wednesday.substr(0, 2),
+                EALang.thursday.substr(0, 2),
+                EALang.friday.substr(0, 2),
+                EALang.saturday.substr(0, 2),
+            ],
+            monthNames: [
+                EALang.january,
+                EALang.february,
+                EALang.march,
+                EALang.april,
+                EALang.may,
+                EALang.june,
+                EALang.july,
+                EALang.august,
+                EALang.september,
+                EALang.october,
+                EALang.november,
+                EALang.december,
+            ],
             prevText: EALang.previous,
             nextText: EALang.next,
             currentText: EALang.now,
@@ -183,12 +270,17 @@ window.BackendCalendarWorkingPlanExceptionsModal = window.BackendCalendarWorking
             timeText: EALang.time,
             hourText: EALang.hour,
             minuteText: EALang.minutes,
-            firstDay: 0
+            firstDay: 0,
         });
-        $('#working-plan-exception-date').val(GeneralFunctions.formatDate(date, GlobalVariables.dateFormat, false));
+        $("#working-plan-exception-date").val(
+            GeneralFunctions.formatDate(date, GlobalVariables.dateFormat, false)
+        );
 
-        $('#working-plan-exception-start').timepicker({
-            timeFormat: GlobalVariables.timeFormat === 'regular' ? 'h:mm tt' : GlobalVariables.timeFormat,
+        $("#working-plan-exception-start").timepicker({
+            timeFormat:
+                GlobalVariables.timeFormat === "regular"
+                    ? "h:mm tt"
+                    : GlobalVariables.timeFormat,
 
             // Translation
             prevText: EALang.previous,
@@ -199,12 +291,15 @@ window.BackendCalendarWorkingPlanExceptionsModal = window.BackendCalendarWorking
             timeText: EALang.time,
             hourText: EALang.hour,
             minuteText: EALang.minutes,
-            firstDay: 0
+            firstDay: 0,
         });
-        $('#working-plan-exception-start').val(start);
+        $("#working-plan-exception-start").val(start);
 
-        $('#working-plan-exception-end').timepicker({
-            timeFormat: GlobalVariables.timeFormat === 'regular' ? 'h:mm tt' : GlobalVariables.timeFormat,
+        $("#working-plan-exception-end").timepicker({
+            timeFormat:
+                GlobalVariables.timeFormat === "regular"
+                    ? "h:mm tt"
+                    : GlobalVariables.timeFormat,
             // Translation
             prevText: EALang.previous,
             nextText: EALang.next,
@@ -214,17 +309,25 @@ window.BackendCalendarWorkingPlanExceptionsModal = window.BackendCalendarWorking
             timeText: EALang.time,
             hourText: EALang.hour,
             minuteText: EALang.minutes,
-            firstDay: 0
+            firstDay: 0,
         });
-        $('#working-plan-exception-end').val(end);
+        $("#working-plan-exception-end").val(end);
     };
 
     exports.initialize = function () {
-        GlobalVariables.availableProviders.forEach(function (availableProvider) {
-            $('#working-plan-exception-provider').append(new Option(availableProvider.first_name + ' ' + availableProvider.last_name, availableProvider.id));
+        GlobalVariables.availableProviders.forEach(function (
+            availableProvider
+        ) {
+            $("#working-plan-exception-provider").append(
+                new Option(
+                    availableProvider.first_name +
+                        " " +
+                        availableProvider.last_name,
+                    availableProvider.id
+                )
+            );
         });
 
         bindEventHandlers();
     };
-
 })(window.BackendCalendarWorkingPlanExceptionsModal);

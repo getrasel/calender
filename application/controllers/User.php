@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     https://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        https://easyappointments.org
+ * @link        https://calendars.davehansen.com
  * @since       v1.0.0
  * ---------------------------------------------------------------------------- */
 
@@ -20,7 +20,8 @@ use EA\Engine\Types\NonEmptyText;
  *
  * @package Controllers
  */
-class User extends EA_Controller {
+class User extends EA_Controller
+{
     /**
      * User constructor.
      */
@@ -51,8 +52,7 @@ class User extends EA_Controller {
         $view['base_url'] = config('base_url');
         $view['dest_url'] = $this->session->userdata('dest_url');
 
-        if ( ! $view['dest_url'])
-        {
+        if (!$view['dest_url']) {
             $view['dest_url'] = site_url('backend');
         }
 
@@ -110,28 +110,21 @@ class User extends EA_Controller {
      */
     public function ajax_check_login()
     {
-        try
-        {
-            if ( ! $this->input->post('username') || ! $this->input->post('password'))
-            {
+        try {
+            if (!$this->input->post('username') || !$this->input->post('password')) {
                 throw new Exception('Invalid credentials given!');
             }
 
             $user_data = $this->user_model->check_login($this->input->post('username'), $this->input->post('password'));
 
-            if ($user_data)
-            {
+            if ($user_data) {
                 $this->session->set_userdata($user_data); // Save data on user's session.
 
                 $response = AJAX_SUCCESS;
-            }
-            else
-            {
+            } else {
                 $response = AJAX_FAILURE;
             }
-        }
-        catch (Exception $exception)
-        {
+        } catch (Exception $exception) {
             $this->output->set_status_header(500);
 
             $response = [
@@ -156,10 +149,8 @@ class User extends EA_Controller {
      */
     public function ajax_forgot_password()
     {
-        try
-        {
-            if ( ! $this->input->post('username') || ! $this->input->post('email'))
-            {
+        try {
+            if (!$this->input->post('username') || !$this->input->post('email')) {
                 throw new Exception('You must enter a valid username and email address in '
                     . 'order to get a new password!');
             }
@@ -169,8 +160,7 @@ class User extends EA_Controller {
                 $this->input->post('email')
             );
 
-            if ($new_password != FALSE)
-            {
+            if ($new_password != FALSE) {
                 $this->config->load('email');
 
                 $email = new EmailClient($this, $this->config->config);
@@ -181,14 +171,15 @@ class User extends EA_Controller {
                     'company_email' => $this->settings_model->get_setting('company_email')
                 ];
 
-                $email->send_password(new NonEmptyText($new_password), new Email($this->input->post('email')),
-                    $company_settings);
+                $email->send_password(
+                    new NonEmptyText($new_password),
+                    new Email($this->input->post('email')),
+                    $company_settings
+                );
             }
 
             $response = $new_password != FALSE ? AJAX_SUCCESS : AJAX_FAILURE;
-        }
-        catch (Exception $exception)
-        {
+        } catch (Exception $exception) {
             $this->output->set_status_header(500);
 
             $response = [

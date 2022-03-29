@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     https://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        https://easyappointments.org
+ * @link        https://calendars.davehansen.com
  * @since       v1.3.2
  * ---------------------------------------------------------------------------- */
 
@@ -18,14 +18,14 @@ require_once __DIR__ . '/Google.php';
  *
  * CLI commands of Easy!Appointments, can only be executed from a terminal and not with a direct request.
  */
-class Console extends EA_Controller {
+class Console extends EA_Controller
+{
     /**
      * Console constructor.
      */
     public function __construct()
     {
-        if ( ! is_cli())
-        {
+        if (!is_cli()) {
             exit('No direct script access allowed');
         }
 
@@ -77,13 +77,11 @@ class Console extends EA_Controller {
      */
     public function migrate($type = '')
     {
-        if ($type === 'fresh' && $this->migration->version(0) === FALSE)
-        {
+        if ($type === 'fresh' && $this->migration->version(0) === FALSE) {
             show_error($this->migration->error_string());
         }
 
-        if ($this->migration->latest() === FALSE)
-        {
+        if ($this->migration->latest() === FALSE) {
             show_error($this->migration->error_string());
         }
     }
@@ -175,13 +173,11 @@ class Console extends EA_Controller {
     {
         $path = isset($GLOBALS['argv'][3]) ? $GLOBALS['argv'][3] : APPPATH . '/../storage/backups';
 
-        if ( ! file_exists($path))
-        {
+        if (!file_exists($path)) {
             throw new Exception('The backup path does not exist™: ' . $path);
         }
 
-        if ( ! is_writable($path))
-        {
+        if (!is_writable($path)) {
             throw new Exception('The backup path is not writable: ' . $path);
         }
 
@@ -209,10 +205,8 @@ class Console extends EA_Controller {
     {
         $providers = $this->providers_model->get_batch();
 
-        foreach ($providers as $provider)
-        {
-            if ( ! filter_var($provider['settings']['google_sync'], FILTER_VALIDATE_BOOLEAN))
-            {
+        foreach ($providers as $provider) {
+            if (!filter_var($provider['settings']['google_sync'], FILTER_VALIDATE_BOOLEAN)) {
                 continue;
             }
 

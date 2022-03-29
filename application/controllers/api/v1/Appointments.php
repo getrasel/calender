@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     https://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        https://easyappointments.org
+ * @link        https://calendars.davehansen.com
  * @since       v1.2.0
  * ---------------------------------------------------------------------------- */
 
@@ -22,7 +22,8 @@ use EA\Engine\Types\NonEmptyText;
  *
  * @package Controllers
  */
-class Appointments extends API_V1_Controller {
+class Appointments extends API_V1_Controller
+{
     /**
      * Appointments Resource Parser
      *
@@ -53,21 +54,18 @@ class Appointments extends API_V1_Controller {
      */
     public function get($id = NULL)
     {
-        try
-        {
+        try {
             $where = [
                 'is_unavailable' => FALSE
             ];
 
-            if ($id !== NULL)
-            {
+            if ($id !== NULL) {
                 $where['id'] = $id;
             }
 
             $appointments = $this->appointments_model->get_batch($where, NULL, NULL, NULL, array_key_exists('aggregates', $_GET));
 
-            if ($id !== NULL && count($appointments) === 0)
-            {
+            if ($id !== NULL && count($appointments) === 0) {
                 $this->throw_record_not_found();
             }
 
@@ -80,10 +78,7 @@ class Appointments extends API_V1_Controller {
                 ->minimize()
                 ->singleEntry($id)
                 ->output();
-
-        }
-        catch (Exception $exception)
-        {
+        } catch (Exception $exception) {
             $this->handle_exception($exception);
         }
     }
@@ -93,25 +88,21 @@ class Appointments extends API_V1_Controller {
      */
     public function post()
     {
-        try
-        {
+        try {
             // Insert the appointment to the database.
             $request = new Request();
             $appointment = $request->get_body();
             $this->parser->decode($appointment);
 
-            if (isset($appointment['id']))
-            {
+            if (isset($appointment['id'])) {
                 unset($appointment['id']);
             }
 
             // Generate end_datetime based on service duration if this field is not defined
-            if ( ! isset($appointment['end_datetime']))
-            {
+            if (!isset($appointment['end_datetime'])) {
                 $service = $this->services_model->get_row($appointment['id_services']);
 
-                if (isset($service['duration']))
-                {
+                if (isset($service['duration'])) {
                     $end_datetime = new DateTime($appointment['start_datetime']);
                     $end_datetime->add(new DateInterval('PT' . $service['duration'] . 'M'));
                     $appointment['end_datetime'] = $end_datetime->format('Y-m-d H:i:s');
@@ -140,9 +131,7 @@ class Appointments extends API_V1_Controller {
             $response = new Response($batch);
             $status = new NonEmptyText('201 Created');
             $response->encode($this->parser)->singleEntry(TRUE)->output($status);
-        }
-        catch (Exception $exception)
-        {
+        } catch (Exception $exception) {
             $this->handle_exception($exception);
         }
     }
@@ -154,13 +143,11 @@ class Appointments extends API_V1_Controller {
      */
     public function put($id)
     {
-        try
-        {
+        try {
             // Update the appointment record.
             $batch = $this->appointments_model->get_batch(['id' => $id]);
 
-            if ($id !== NULL && count($batch) === 0)
-            {
+            if ($id !== NULL && count($batch) === 0) {
                 $this->throw_record_not_found();
             }
 
@@ -190,9 +177,7 @@ class Appointments extends API_V1_Controller {
             $batch = $this->appointments_model->get_batch(['id' => $id]);
             $response = new Response($batch);
             $response->encode($this->parser)->singleEntry($id)->output();
-        }
-        catch (Exception $exception)
-        {
+        } catch (Exception $exception) {
             $this->handle_exception($exception);
         }
     }
@@ -204,8 +189,7 @@ class Appointments extends API_V1_Controller {
      */
     public function delete($id)
     {
-        try
-        {
+        try {
             $appointment = $this->appointments_model->get_row($id);
             $service = $this->services_model->get_row($appointment['id_services']);
             $provider = $this->providers_model->get_row($appointment['id_users_provider']);
@@ -229,9 +213,7 @@ class Appointments extends API_V1_Controller {
             ]);
 
             $response->output();
-        }
-        catch (Exception $exception)
-        {
+        } catch (Exception $exception) {
             $this->handle_exception($exception);
         }
     }

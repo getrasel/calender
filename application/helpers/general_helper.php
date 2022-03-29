@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.0.0
  * ---------------------------------------------------------------------------- */
 
@@ -26,19 +26,15 @@
  */
 function date3339($timestamp = 0)
 {
-    if ( ! $timestamp)
-    {
+    if (!$timestamp) {
         $timestamp = time();
     }
     $date = date('Y-m-d\TH:i:s', $timestamp);
 
     $matches = [];
-    if (preg_match('/^([\-+])(\d{2})(\d{2})$/', date('O', $timestamp), $matches))
-    {
+    if (preg_match('/^([\-+])(\d{2})(\d{2})$/', date('O', $timestamp), $matches)) {
         $date .= $matches[1] . $matches[2] . ':' . $matches[3];
-    }
-    else
-    {
+    } else {
         $date .= 'Z';
     }
     return $date;
@@ -61,8 +57,7 @@ function hash_password($salt, $password)
     $half = (int)(strlen($salt) / 2);
     $hash = hash('sha256', substr($salt, 0, $half) . $password . substr($salt, $half));
 
-    for ($i = 0; $i < 100000; $i++)
-    {
+    for ($i = 0; $i < 100000; $i++) {
         $hash = hash('sha256', $hash);
     }
 

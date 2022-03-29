@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     https://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        https://easyappointments.org
+ * @link        https://calendars.davehansen.com
  * @since       v1.4.0
  * ---------------------------------------------------------------------------- */
 
@@ -58,7 +58,8 @@
  * @property Synchronization $synchronization
  * @property Timezones $timezones
  */
-class EA_Controller extends CI_Controller {
+class EA_Controller extends CI_Controller
+{
     /**
      * EA_Controller constructor.
      */
@@ -67,7 +68,7 @@ class EA_Controller extends CI_Controller {
         parent::__construct();
 
         $this->configure_language();
-        
+
         rate_limit($this->input->ip_address());
     }
 
@@ -76,8 +77,7 @@ class EA_Controller extends CI_Controller {
      */
     private function configure_language()
     {
-        if ($this->session->has_userdata('language'))
-        {
+        if ($this->session->has_userdata('language')) {
             $this->config->set_item('language', $this->session->userdata('language'));
         }
 

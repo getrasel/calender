@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,37 +27,38 @@
 </head>
 
 <body>
-<div id="main" class="container">
-    <div class="row wrapper">
-        <div id="message-frame" class="col-12 border my-auto frame-container">
-            <div>
-                <img id="message-icon" src="<?= $message_icon ?>" alt="warning">
-            </div>
+    <div id="main" class="container">
+        <div class="row wrapper">
+            <div id="message-frame" class="col-12 border my-auto frame-container">
+                <div>
+                    <img id="message-icon" src="<?= $message_icon ?>" alt="warning">
+                </div>
 
-            <div>
-                <h3><?= $message_title ?></h3>
-                <p><?= $message_text ?></p>
+                <div>
+                    <h3><?= $message_title ?></h3>
+                    <p><?= $message_text ?></p>
 
-                <?php if (isset($exceptions) && config('debug')): ?>
-                    <div>
-                        <h4><?= lang('unexpected_issues') ?></h4>
-                        <?php foreach ($exceptions as $exception): ?>
-                            <?= exceptionToHtml($exception) ?>
-                        <?php endforeach ?>
-                    </div>
-                <?php endif ?>
-            </div>
+                    <?php if (isset($exceptions) && config('debug')) : ?>
+                        <div>
+                            <h4><?= lang('unexpected_issues') ?></h4>
+                            <?php foreach ($exceptions as $exception) : ?>
+                                <?= exceptionToHtml($exception) ?>
+                            <?php endforeach ?>
+                        </div>
+                    <?php endif ?>
+                </div>
 
-            <div class="mt-2">
-                <small>
-                    Powered by
-                    <a href="https://easyappointments.org">Easy!Appointments</a>
-                </small>
+                <div class="mt-2">
+                    <small>
+                        Powered by
+                        <a href="https://calendars.davehansen.com">Easy!Appointments</a>
+                    </small>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<?php google_analytics_script() ?>
+    <?php google_analytics_script() ?>
 </body>
+
 </html>

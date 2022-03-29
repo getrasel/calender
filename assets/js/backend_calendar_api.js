@@ -5,7 +5,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.2.0
  * ---------------------------------------------------------------------------- */
 
@@ -19,8 +19,7 @@
 window.BackendCalendarApi = window.BackendCalendarApi || {};
 
 (function (exports) {
-
-    'use strict';
+    "use strict";
 
     /**
      * Save Appointment
@@ -33,12 +32,19 @@ window.BackendCalendarApi = window.BackendCalendarApi || {};
      * @param {Function} [successCallback] Optional, if defined, this function is going to be executed on post success.
      * @param {Function} [errorCallback] Optional, if defined, this function is going to be executed on post failure.
      */
-    exports.saveAppointment = function (appointment, customer, successCallback, errorCallback) {
-        var url = GlobalVariables.baseUrl + '/index.php/backend_api/ajax_save_appointment';
+    exports.saveAppointment = function (
+        appointment,
+        customer,
+        successCallback,
+        errorCallback
+    ) {
+        var url =
+            GlobalVariables.baseUrl +
+            "/index.php/backend_api/ajax_save_appointment";
 
         var data = {
             csrfToken: GlobalVariables.csrfToken,
-            appointment_data: JSON.stringify(appointment)
+            appointment_data: JSON.stringify(appointment),
         };
 
         if (customer) {
@@ -65,12 +71,18 @@ window.BackendCalendarApi = window.BackendCalendarApi || {};
      * @param {Function} successCallback The ajax success callback function.
      * @param {Function} errorCallback The ajax failure callback function.
      */
-    exports.saveUnavailable = function (unavailable, successCallback, errorCallback) {
-        var url = GlobalVariables.baseUrl + '/index.php/backend_api/ajax_save_unavailable';
+    exports.saveUnavailable = function (
+        unavailable,
+        successCallback,
+        errorCallback
+    ) {
+        var url =
+            GlobalVariables.baseUrl +
+            "/index.php/backend_api/ajax_save_unavailable";
 
         var data = {
             csrfToken: GlobalVariables.csrfToken,
-            unavailable: JSON.stringify(unavailable)
+            unavailable: JSON.stringify(unavailable),
         };
 
         $.post(url, data)
@@ -95,15 +107,22 @@ window.BackendCalendarApi = window.BackendCalendarApi || {};
      * @param {Function} successCallback The ajax success callback function.
      * @param {Function} errorCallback The ajax failure callback function.
      */
-    exports.saveWorkingPlanException = function (date, workingPlanException, providerId,
-                                                 successCallback, errorCallback) {
-        var url = GlobalVariables.baseUrl + '/index.php/backend_api/ajax_save_working_plan_exception';
+    exports.saveWorkingPlanException = function (
+        date,
+        workingPlanException,
+        providerId,
+        successCallback,
+        errorCallback
+    ) {
+        var url =
+            GlobalVariables.baseUrl +
+            "/index.php/backend_api/ajax_save_working_plan_exception";
 
         var data = {
             csrfToken: GlobalVariables.csrfToken,
             date: date,
             working_plan_exception: workingPlanException,
-            provider_id: providerId
+            provider_id: providerId,
         };
 
         $.post(url, data)
@@ -117,15 +136,22 @@ window.BackendCalendarApi = window.BackendCalendarApi || {};
                     errorCallback();
                 }
             });
-    }
+    };
 
-    exports.deleteWorkingPlanException = function (date, providerId, successCallback, errorCallback) {
-        var url = GlobalVariables.baseUrl + '/index.php/backend_api/ajax_delete_working_plan_exception';
+    exports.deleteWorkingPlanException = function (
+        date,
+        providerId,
+        successCallback,
+        errorCallback
+    ) {
+        var url =
+            GlobalVariables.baseUrl +
+            "/index.php/backend_api/ajax_delete_working_plan_exception";
 
         var data = {
             csrfToken: GlobalVariables.csrfToken,
             date: date,
-            provider_id: providerId
+            provider_id: providerId,
         };
 
         $.post(url, data)
@@ -139,5 +165,5 @@ window.BackendCalendarApi = window.BackendCalendarApi || {};
                     errorCallback();
                 }
             });
-    }
+    };
 })(window.BackendCalendarApi);

@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.0.0
  * ---------------------------------------------------------------------------- */
 
@@ -16,7 +16,8 @@
  *
  * @package Models
  */
-class Roles_model extends EA_Model {
+class Roles_model extends EA_Model
+{
     /**
      * Get the record id of a particular role.
      *
@@ -46,8 +47,7 @@ class Roles_model extends EA_Model {
 
         // Convert the int values to bool so that is easier to check whether a user has the required privileges for a
         // specific action.
-        foreach ($privileges as &$value)
-        {
+        foreach ($privileges as &$value) {
             $privileges_number = $value;
 
             $value = [
@@ -57,22 +57,18 @@ class Roles_model extends EA_Model {
                 'delete' => FALSE
             ];
 
-            if ($privileges_number > 0)
-            {
-                if ((int)($privileges_number / PRIV_DELETE) == 1)
-                {
+            if ($privileges_number > 0) {
+                if ((int)($privileges_number / PRIV_DELETE) == 1) {
                     $value['delete'] = TRUE;
                     $privileges_number -= PRIV_DELETE;
                 }
 
-                if ((int)($privileges_number / PRIV_EDIT) == 1)
-                {
+                if ((int)($privileges_number / PRIV_EDIT) == 1) {
                     $value['edit'] = TRUE;
                     $privileges_number -= PRIV_EDIT;
                 }
 
-                if ((int)($privileges_number / PRIV_ADD) == 1)
-                {
+                if ((int)($privileges_number / PRIV_ADD) == 1) {
                     $value['add'] = TRUE;
                     $privileges_number -= PRIV_ADD;
                 }

@@ -7,7 +7,7 @@
  * @author      A.Tselegidis <alextselegidis@gmail.com>
  * @copyright   Copyright (c) 2013 - 2020, Alex Tselegidis
  * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
+ * @link        http://calendars.davehansen.com
  * @since       v1.2.0
  * ---------------------------------------------------------------------------- */
 
@@ -33,7 +33,8 @@ use RuntimeException;
  *
  * @deprecated
  */
-class Email {
+class Email
+{
     /**
      * Framework Instance
      *
@@ -94,12 +95,10 @@ class Email {
         EmailAddress $recipient_email,
         Text $ics_stream,
         $timezone = NULL
-    )
-    {
+    ) {
         $timezones = $this->CI->timezones->to_array();
 
-        switch ($settings['date_format'])
-        {
+        switch ($settings['date_format']) {
             case 'DMY':
                 $date_format = 'd/m/Y';
                 break;
@@ -113,8 +112,7 @@ class Email {
                 throw new Exception('Invalid date_format value: ' . $settings['date_format']);
         }
 
-        switch ($settings['time_format'])
-        {
+        switch ($settings['time_format']) {
             case 'military':
                 $time_format = 'H:i';
                 break;
@@ -129,8 +127,7 @@ class Email {
         $appointment_start = new DateTime($appointment['start_datetime'], $appointment_timezone);
         $appointment_end = new DateTime($appointment['end_datetime'], $appointment_timezone);
 
-        if ($timezone && $timezone !== $provider['timezone'])
-        {
+        if ($timezone && $timezone !== $provider['timezone']) {
             $appointment_timezone = new DateTimeZone($timezone);
             $appointment_start->setTimezone($appointment_timezone);
             $appointment_end->setTimezone($appointment_timezone);
@@ -161,8 +158,7 @@ class Email {
         $mailer->Body = $html;
         $mailer->addStringAttachment($ics_stream->get(), 'invitation.ics');
 
-        if ( ! $mailer->Send())
-        {
+        if (!$mailer->Send()) {
             throw new RuntimeException('Email could not been sent. Mailer Error (Line ' . __LINE__ . '): '
                 . $mailer->ErrorInfo);
         }
@@ -198,12 +194,10 @@ class Email {
         EmailAddress $recipient_email,
         Text $reason,
         $timezone = NULL
-    )
-    {
+    ) {
         $timezones = $this->CI->timezones->to_array();
 
-        switch ($settings['date_format'])
-        {
+        switch ($settings['date_format']) {
             case 'DMY':
                 $date_format = 'd/m/Y';
                 break;
@@ -217,8 +211,7 @@ class Email {
                 throw new Exception('Invalid date_format value: ' . $settings['date_format']);
         }
 
-        switch ($settings['time_format'])
-        {
+        switch ($settings['time_format']) {
             case 'military':
                 $time_format = 'H:i';
                 break;
@@ -232,8 +225,7 @@ class Email {
         $appointment_timezone = new DateTimeZone($provider['timezone']);
         $appointment_start = new DateTime($appointment['start_datetime'], $appointment_timezone);
 
-        if ($timezone && $timezone !== $provider['timezone'])
-        {
+        if ($timezone && $timezone !== $provider['timezone']) {
             $appointment_timezone = new DateTimeZone($timezone);
             $appointment_start->setTimezone($appointment_timezone);
         }
@@ -262,8 +254,7 @@ class Email {
         $mailer->Subject = lang('appointment_cancelled_title');
         $mailer->Body = $html;
 
-        if ( ! $mailer->Send())
-        {
+        if (!$mailer->Send()) {
             throw new RuntimeException('Email could not been sent. Mailer Error (Line ' . __LINE__ . '): '
                 . $mailer->ErrorInfo);
         }
@@ -296,8 +287,7 @@ class Email {
         $mailer->Subject = lang('new_account_password');
         $mailer->Body = $html;
 
-        if ( ! $mailer->Send())
-        {
+        if (!$mailer->Send()) {
             throw new RuntimeException('Email could not been sent. Mailer Error (Line ' . __LINE__ . '): '
                 . $mailer->ErrorInfo);
         }
@@ -312,8 +302,7 @@ class Email {
     {
         $mailer = new PHPMailer();
 
-        if ($this->config['protocol'] === 'smtp')
-        {
+        if ($this->config['protocol'] === 'smtp') {
             $mailer->isSMTP();
             $mailer->SMTPDebug  = $this->config['smtp_debug'];
             $mailer->Host = $this->config['smtp_host'];
