@@ -126,21 +126,52 @@ window.FrontendBookApi = window.FrontendBookApi || {};
                     $("#available-hours").append(
                         $("<button/>", {
                             class: "btn btn-outline-secondary btn-block shadow-none available-hour",
+                            id: "collapse_btn",
                             data: {
                                 value: availableHour,
                             },
-                            text: availableHourMoment.format(timeFormat),
+                            // text: availableHourMoment.format(timeFormat) + "<button> Confirm </button>",
+                            html: availableHourMoment.format(timeFormat)+"<button class='btn button-next btn-primary confirm_btn' id='button-next-2' data-step_index='2'>Confirm</button>",
                         }),
-                        $("<button/>", {
-                            class: "btn button-next btn-primary",
-                            id: "button-next-2",
-                            attr: {
-                                "data-step_index": 2,
-                            },
-                            text: "Confirm",
-                        })
                     );
                 });
+
+                $(".button-next.confirm_btn").on("click", function () {
+                    
+                    // If we are on the 2nd tab then the user should have an appointment hour selected.
+                    if ($(this).attr("data-step_index") === "2") {
+                        if (!$(".selected-hour").length) {
+                            if (!$("#select-hour-prompt").length) {
+                                $("<div/>", {
+                                    id: "select-hour-prompt",
+                                    class: "text-danger mb-4",
+                                    text: EALang.appointment_hour_missing,
+                                }).prependTo("#available-hours");
+                            }
+                            return;
+                        }
+                    }
+                    // Display the next step tab (uses jquery animation effect).
+                    var nextTabIndex = parseInt($(this).attr("data-step_index")) + 1;
+
+                    $(this)
+                        .parents()
+                        .eq(6)
+                        .hide("fade", function () {
+                            $(".active-step").removeClass("active-step");
+                            $("#step-" + nextTabIndex).addClass("active-step");
+                            $("#wizard-frame-" + nextTabIndex).show("fade");
+                    });
+                });
+               
+                // $('.available-hour').on('click', function (){
+                //     if($('selected-hour')) {
+                        
+                //         $(this).append('<button class="btn button-next btn-primary confirm_btn">confirm</button>');
+                //     } else {
+                //         $(this).append('<button class="btn button-next btn-primary remove_btn">confirm</button>').remove();
+                //     }
+                // });
 
                 if (FrontendBook.manageMode) {
                     // Set the appointment's start time as the default selection.

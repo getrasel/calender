@@ -170,9 +170,10 @@ body {
 }
 
 #book-appointment-wizard #available-hours {
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     margin: 15px 0;
-    padding-right: 10px;
+    margin-right: 10px;
     width: auto;
     max-height: 420px;
 }
@@ -187,7 +188,20 @@ body {
     color: #0071b3;
     border-color: #0071b3;
     height: 50px;
+    position: relative;
+    display: inline-block;
+    transition: all 0.2s ease-in-out;
 }
+#book-appointment-wizard #available-hours .available-hour button.confirm_btn {
+    position: absolute;
+    left: calc(100% + 11px);
+    font-weight: 700;
+    top: -2px;
+    width: calc(100% + 4px);
+    height: 50px;
+    border: 2px solid #0071b3;
+}
+
 #book-appointment-wizard #available-hours .available-hour:hover,
 #book-appointment-wizard #available-hours .available-hour:focus {
     background-color: #ffffff;
@@ -195,10 +209,34 @@ body {
     border-width: 2px;
     border-color: #0071b3;
     outline: none;
+    transition: all 0.2s ease-in-out;
+}
+
+#book-appointment-wizard #available-hours .available-hour:hover button.confirm_btn, #book-appointment-wizard #available-hours .available-hour:focus button.confirm_btn, #book-appointment-wizard #available-hours .available-hour.selected-hour:hover button.confirm_btn, #book-appointment-wizard #available-hours .available-hour.selected-hour:focus button.confirm_btn, #book-appointment-wizard #available-hours .available-hour.selected-hour button.confirm_btn{
+    border-width: 2px;
+    border-color: #0071b3;
+    box-shadow: none;
+    outline: none;
+    width: calc(100% + 4px);
+    left: calc(100% + 11px);
+    top: -2px;
+    transition: all 0.2s ease-in-out;
+}
+#book-appointment-wizard #available-hours .available-hour:hover button.confirm_btn, #book-appointment-wizard #available-hours .available-hour.selected-hour:hover button.confirm_btn{
+    border-color: #14cedd;
+    background: #14cedd;
+    transition: all 0.2s ease-in-out;
+}
+#book-appointment-wizard #available-hours .available-hour.selected-hour{
+    transition: all 0.2s ease-in-out;
 }
 
 #book-appointment-wizard #available-hours .selected-hour {
+    border-width: 2px;
     border-color: #0071b3;
+    width: calc(50% - 5px);
+    display: inline-block;
+    transition: all 0.2s ease-in-out;
 }
 
 #book-appointment-wizard .span3 {
