@@ -30,13 +30,14 @@
                 <!-- FRAME TOP BAR -->
 
                 <div id="header">
-                    <span id="company-name" style="Height: 25px;"><img src="/calendars/assets/img/logo-16x16.png" style="padding: 0,0,15,10;"><?= $company_name ?></span>
+                    <span id="company-name"><img src="/calendars/assets/img/logo-16x16.png" style="padding: 0,0,15,10; vertical-align:middle; ">
+                        <span style="font-size: 40px; transform: scale(1, 3); vertical-align: middle;"><?= $company_name ?></span></span>
 
                     <div id="steps">
                         <!-- <div id="step-1" class="book-step active-step"
                          data-tippy-content="<?= lang('service_and_provider') ?>">
                         <strong>1</strong>
-                    </div> -->
+                    </div>
 
                         <div id="step-2" class="book-step active-step" data-toggle="tooltip" data-tippy-content="<?= lang('appointment_date_and_time') ?>">
                             <strong>1</strong>
@@ -46,7 +47,7 @@
                         </div>
                         <div id="step-4" class="book-step" data-toggle="tooltip" data-tippy-content="<?= lang('appointment_confirmation') ?>">
                             <strong>3</strong>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
