@@ -31,7 +31,7 @@
 
                 <div id="header">
                     <span id="company-name"><img src="<?= asset_url('assets/img/logo-16x16.png') ?>" style="padding: 0,0,15,10; vertical-align:middle; ">
-                        <span style="font-size: 40px; transform: scale(1, 3); vertical-align: middle;"><?= $company_name ?></span></span>
+                        <span style="font-size: 40px; transform: scale(1, 3); vertical-align: middle; letter-spacing: 3px;"><?= $company_name ?></span></span>
 
                     <div id="steps">
                         <!-- <div id="step-1" class="book-step active-step"
