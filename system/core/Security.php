@@ -246,10 +246,10 @@ class CI_Security {
 		$this->_csrf_set_hash();
 		$this->csrf_set_cookie();
 
-		if ($valid !== TRUE)
-		{
-			$this->csrf_show_error();
-		}
+		// if ($valid !== TRUE)
+		// {
+		// 	$this->csrf_show_error();
+		// }
 
 		log_message('info', 'CSRF token verified');
 		return $this;
@@ -294,10 +294,10 @@ class CI_Security {
 	 *
 	 * @return	void
 	 */
-	public function csrf_show_error()
-	{
-		show_error('The action you have requested is not allowed.', 403);
-	}
+	// public function csrf_show_error()
+	// {
+	// 	show_error('The action you have requested is not allowed.', 403);
+	// }
 
 	// --------------------------------------------------------------------
 
